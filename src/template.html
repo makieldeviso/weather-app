@@ -23,6 +23,8 @@
     </header>
 
     <main class="day">
+        <div id="condition-bg" class="clear"></div>
+
         <!-- search bar (start) -->
         <div id="city-search">
             <input type="text" id="city-search-field">
@@ -33,8 +35,11 @@
         <!-- current display (start) -->
         <div id="current-display">
             <div id="location-display">
-                <img src="./assets/map-marker.svg" alt="location or map marker" id="location-icon">
-                <p id="city">Tacloban</p>
+                <!-- <img src="./assets/map-marker.svg" alt="location or map marker" id="location-icon"> -->
+                <p id="city">
+                    <span id="pin-icon"></span>
+                    <span id="city-text">Tacloban</span>
+                </p>
                 <p id="country">Philippines</p>
             </div>
     

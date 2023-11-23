@@ -37,7 +37,7 @@ const displayMainData = function (data) {
     console.log(forecastData);
 
     // DOM elements
-    const cityName = domElem('p#city');
+    const cityName = domElem('p#city span#city-text');
     const countryName = domElem('p#country');
     const mainDate = domElem('p#date');
     const mainTempHero = domElem('p#main-temp');
