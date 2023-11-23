@@ -8,26 +8,54 @@
 }
 
 :root {
-    --icon-size: calc(50px + 1vw);
-    --small-icon-size: calc(20px + 1vw);
+    --icon-size: calc(40px + 0.5vw);
+    --small-icon-size: calc(25px + 0.5vw);
 
     --header-font-size: 1.3rem;
     --common-font-size: 1rem;
-    --title-font-size: 1.5rem;
+    --title-font-size: 1.3rem;
 
     --common-font-family: 'Montserrat', sans-serif;
     --header-font-family: 'Maven Pro', sans-serif;
 
-    --common-padding: calc(5px + 1vw);
-    --common-margin: calc(10px + 1vw);
+    --common-padding: calc(5px + 0.5vw);
+    --common-margin: calc(10px + 0.5vw);
+
+    --header-height: 8vh;
+    --main-height: 85vh;
+    --footer-height: 7vh;
+
+    --base-color: #64CCC5;
+    --light-color: #DAFFFB;
+    --darker-color: #176B87;
+    --darkest-color: #04364A;
+
+    --day-color: #E0F4FF;
+    --night-color: #13005A;
+    --yellow-color: #FFC436;
+    --blue-color: #55A3DB;
 }
 
-/* main {
-    display: flex;
-    flex-direction: column;
-} */
+body {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: var(--header-height) var(--main-height) var(--footer-height);
+}
 
+main.day {
+   height: 100%;
+   background: linear-gradient(#87c0ec, #5197ca);
+}
 
+main.night {
+    height: 100%;
+    background: linear-gradient(#37406c, #262e5a);
+ }
+
+p {
+    color: white;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
 
 img#location-icon {
     height: 50px;
@@ -36,23 +64,49 @@ img#location-icon {
 
 /* Header (start) */
 header {
+    /* height: var(--header-height); */
     display: grid;
     grid-template-columns: 1fr max-content;
+    background-color: var(--light-color);
+    padding: 0 var(--common-padding);
 }
 
 div#title-banner {
     display: grid;
     grid-template-columns: max-content 1fr;
     align-items: center;
+    column-gap: 5px;
 }
 
 h1#page-name {
     font-size: var(--title-font-size);
 }
 
-img#website-icon {
+div#logo-cont {
     width: var(--icon-size);
     height: var(--icon-size);
+    background-color: var(--day-color);
+    border-radius: 50%;
+    border: 2px solid var(--yellow-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+div#logo-cont.day {
+    background-color: var(--day-color);
+    border: 2px solid var(--yellow-color);
+}
+
+div#logo-cont.night {
+    background-color: var(--night-color);
+    border: 2px solid var(--blue-color);
+}
+
+img#website-icon {
+    width: 90%;
+    height: 90%;
+    margin: auto;
 }
 
 div#options-banner {
@@ -76,16 +130,25 @@ button#settings {
 
 /* Main (start) */
 div#city-search {
-    width: 70%;
+    width: 450px;
+    max-width: 90vw;
     display: grid;
     grid-template-columns: 1fr max-content;
     justify-items: center;
-    margin: auto;
+    margin: var(--common-margin) auto;
+    gap: 10px;
 }
+
 input#city-search-field {
     width: 100%;
     height: 30px;
-    border: 1px solid black;
+    border: 2px solid var(--darker-color);
+    border-radius: 10px;
+    padding: 0 var(--common-padding);
+}
+
+button:hover {
+    cursor: pointer;
 }
 
 button#city-search-button {
@@ -95,8 +158,16 @@ button#city-search-button {
     background-repeat: no-repeat;
     width: 30px;
     height: 30px;
-    border: 1px solid black;
+    border: 2px solid var(--darker-color);
+    background-color: var(--darker-color);
+    border-radius: 50%;
 }
+
+button#city-search-button:hover {
+    filter: brightness(1.1);
+}
+
+
 
 div#location-display {
     display: grid;
@@ -119,13 +190,11 @@ img#location-icon {
 p#city {
     grid-area: city;
     font-size: calc(var(--header-font-size) * 1.3);
-    font-family: var(--header-font-family);
 }
 
 p#country {
     grid-area: country;
-    font-size: calc(var(--common-font-size) * 1.1);
-    font-family: var(--header-font-family);
+    font-size: var(--common-font-size);
     justify-self: center;
 }
 
@@ -135,14 +204,15 @@ div#date-display {
 }
 
 div#date-display p {
-    font-size: var(--common-font-size);
+    font-size: calc(var(--common-font-size) * 0.8);
 }
 
 div#main-temp-display {
    display: grid;
    grid-template-columns: max-content max-content;
    width: max-content;
-   margin: auto; 
+   margin: calc(var(--common-margin) * 2) auto; 
+   margin-bottom: 0;
    align-content: center;
    justify-content: center;
 }
@@ -150,24 +220,31 @@ div#main-temp-display {
 p#main-temp {
     font-size: calc(var(--header-font-size) * 4);
     font-family: var(--header-font-family);
+    line-height: 1;
 }
 
 p#main-unit {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
     font-size: calc(var(--header-font-size) * 2);
 }
 
 p#main-unit span.units {
     font-size: calc(var(--header-font-size) * 2.5);
+    align-self: start;
 }
 
 span.units {
     align-self: center;
 }
 
+div#condition-display {
+    margin: 0 0 calc(var(--common-margin) * 2);
+}
+
 p#main-condition {
     text-align: center;
-    font-size: var(--common-font-size);
+    font-size: calc(var(--common-font-size) * 1.1);
 }
 
 
@@ -175,19 +252,21 @@ div#high-low-temp {
     display: flex;
     gap: 5px;
     justify-content: center;
+    margin: var(--common-margin);
 }
 
 div#more-stats {
     display: grid;
-    grid-template-columns: repeat(3, 30%);
-    margin: auto;
+    grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+    margin: var(--common-margin) auto calc(var(--common-margin) * 2);
     justify-content: center;
     column-gap: 15px;
+    width: 450px;
+    max-width: 90vw;
 }
 
 div.stat {
     display: grid;
-    flex-direction: column;
     font-size: calc(var(--common-font-size) * 0.8);
     grid-template-areas:
         "stat-icon stat-label"
@@ -227,6 +306,7 @@ div#hourly-forecast-cont {
     gap: 10px;
     margin: var(--common-margin) auto;
     padding: var(--common-padding);
+    padding-bottom: calc(var(--common-padding) * 2);
     width: 90vw;
     overflow-x: scroll;
 
@@ -235,13 +315,13 @@ div#hourly-forecast-cont {
 div.hourly-forecast {
     display: flex;
     flex-direction: column;
-    row-gap: 3px;
+    row-gap: 5px;
     align-items: center;
     width: 50px;
     text-align: center;
-    border: 1px solid black;
     padding: 3px;
-    border-radius: 3px;
+    border-radius: 5px;
+    background-color: rgb(219, 255, 251, 0.3);
 }
 
 div#hourly-forecast-cont p {
@@ -252,11 +332,26 @@ div#hourly-forecast-cont p {
 /* hourly forecast (end) */
 
 /* daily-forecast (start) */
+div#daily-forecast-cont {
+    display: flex;
+    flex-direction: column;
+    width: 90vw;
+    margin: var(--common-margin) auto;
+    border-radius: 5px;
+    background-color: rgb(219, 255, 251, 0.3);
+}
+
 div.daily-forecast {
     display: grid;
-    grid-template-columns: repeat(5, 18%);
-    column-gap: 2%;
+    grid-template-columns: repeat(5, 1fr);
     margin: auto;
+    width: 100%;
+    align-items: center;
+    padding: calc(var(--common-padding) * 0.5) var(--common-padding);
+}
+
+div.daily-forecast p {
+    font-size: calc(var(--common-font-size) * 0.9);
 }
 
 img.hourly-weather-icon, img.daily-weather-icon {
@@ -268,6 +363,47 @@ img.daily-weather-icon{
     justify-self: center;
 }
 
+p.daily-high, p.daily-low {
+    text-align: center;
+}
+
 /* daily-forecast (end) */
 
 /* Main (end) */
+
+/* Footer (start) */
+footer {
+    /* height: var(--footer-height); */
+    background-color: var(--base-color);
+}
+
+div#footer-cont {
+    display: flex;
+    column-gap: 10px;
+    flex-wrap: wrap;
+    flex: 1 0 100%;
+    justify-content: center;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    padding: var(--common-padding);
+}
+
+div#footer-cont p, div#footer-cont a {
+    font-size: calc(var(--common-font-size) * 0.8);
+}
+
+a#github-link {
+    display: flex;
+    column-gap: 3px;
+    text-decoration: none;
+}
+
+div#footer-cont a img {
+    width: var(--common-font-size);
+    height: var(--common-font-size);
+}
+
+
+/* Footer (end) */

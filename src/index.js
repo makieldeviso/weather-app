@@ -13,3 +13,4 @@ setInitial();
 
 // Loads initial data on DOM using preferences saved on the local storage
 onLoadLocationWeather();
+

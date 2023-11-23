@@ -50,7 +50,8 @@ const displayMainData = function (data) {
     const humidStat = domElem('div#stat-humid p.stat-num');
     const windStat = domElem('div#stat-wind p.stat-num');
     const windStatUnit = domElem('div#stat-wind p.stat-unit');
-    const windStatDir= domElem('div#stat-wind p.wind-dir');
+    const windStatDir = domElem('div#stat-wind p.wind-dir');
+    const titleLogo =  domElem('img#website-icon');
 
     // Value
     const locationName = forecastData.location.name;
@@ -64,6 +65,7 @@ const displayMainData = function (data) {
     const humidVal = forecastData.current.humidity;
     const windVal = forecastData.current[`wind_${windUnit}`];
     const windDir = forecastData.current.wind_dir;
+    const mainCondition = forecastData.current.condition.icon;
     
     // Assign values/text to DOM elements
     cityName.textContent = locationName;
@@ -89,12 +91,15 @@ const displayMainData = function (data) {
     windStat.textContent = windVal;
     windStatUnit.textContent = windUnit;
     windStatDir.textContent = windDir;
+
+    // Sets website logo dynamic to weather condition
+    titleLogo.setAttribute('src', mainCondition);
 }
 
 const displayHourlyForecast = function (data) {
     // data argument should receive the whole response,
     // this function is responsible with finding the hourly forecast
-    const currentTime = Number(format(new Date(), 'h'));
+    const currentTime = Number(format(new Date(), 'H'));
     const currentHourlyData = data.forecast.forecastday[0].hour;
     const tomHourlyData = data.forecast.forecastday[1].hour;
     const hourlyObjArr = [];
