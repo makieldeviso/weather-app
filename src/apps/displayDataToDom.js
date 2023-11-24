@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { format, parse } from "date-fns";
 import { getDayForecast } from "./forecastScripts";
 import { getUserSettings, getUserPref} from "./userSettings";
 import { getLocalTimeOfSearched } from "./timeScript";
@@ -30,6 +30,7 @@ const createCdnIcon = function ( assignClass, time, condition, iconUrl ) {
 
 const displayMainData = function (data) {
     const forecastData = data;
+    const timeZoneId = data.location.tz_id;
     const userSettings = getUserSettings();
     const {tempUnit, precipUnit, windUnit} = userSettings;
 
@@ -53,7 +54,7 @@ const displayMainData = function (data) {
     // Value
     const locationName = forecastData.location.name;
     const locationCountry = forecastData.location.country;
-    const todayDate = getLocalTimeOfSearched(data, 'day_date');
+    const todayDate = getLocalTimeOfSearched(data, timeZoneId, 'day_date');
     const mainTempHeroVal = forecastData.current[`temp_${tempUnit}`];
     const conditionVal = forecastData.current.condition.text;
     const mainTempHighVal = getDayForecast(forecastData, 0, 'day')[`maxtemp_${tempUnit}`];
@@ -96,7 +97,8 @@ const displayMainData = function (data) {
 const displayHourlyForecast = function (data) {
     // data argument should receive the whole response,
     // this function is responsible with finding the hourly forecast
-    const currentHour = Number(getLocalTimeOfSearched(data, 'current_hour'));
+    const timeZoneId = data.location.tz_id;
+    const currentHour = getLocalTimeOfSearched(data, timeZoneId, 'current_hour');
 
     const currentHourlyData = data.forecast.forecastday[0].hour;
     const tomHourlyData = data.forecast.forecastday[1].hour;
@@ -104,29 +106,20 @@ const displayHourlyForecast = function (data) {
 
     // Pushes hourly forecast to hourlyObjArr from next hour of current hour until end of current day
     for (let i =( currentHour + 1 ); i < currentHourlyData.length; i++) {
-        const newHourlyData = currentHourlyData[i];
-
-        // Add (tz_id) Time Zone id to be used for further execution\
-        newHourlyData.tz_id = data.location.tz_id;
-        newHourlyData.hourly_forecast = true;
-        hourlyObjArr.push(newHourlyData);
+        hourlyObjArr.push(currentHourlyData[i]);
     }
 
      // Pushes hourly forecast to hourlyObjArr from start of next day until same hour of current hour
      for (let i = 0; i <= currentHour; i++) {
-
-        const newHourlyData = tomHourlyData[i];
-        // Add (tz_id) Time Zone id to be used for further execution\
-        newHourlyData.tz_id = data.location.tz_id;
-        newHourlyData.hourly_forecast = true;
-        hourlyObjArr.push(newHourlyData);
+        hourlyObjArr.push(tomHourlyData[i]);
     }
-
+    console.log(hourlyObjArr);
     // Creates and return individual hourly forecast
     const createHourlyDisplay = function (hourlyObj) {
         // hourlyObj parameter receives individual hourly forecast object 
+        // Note: timeZoneId exists in upper scope
         // const dateObj = new Date(hourlyObj.time_epoch * 1000);
-        const hourString = getLocalTimeOfSearched(hourlyObj, 'current_time'); // time in string 00:00 format
+        const hourString = getLocalTimeOfSearched(hourlyObj, timeZoneId, 'hour_minute'); // time in string 00:00 format
         const condition = hourlyObj.condition.text; // condition description string
         const cdnIcon = hourlyObj.condition.icon; // src url
         const tempUnit = getUserPref('tempUnit');
@@ -164,6 +157,10 @@ const displayHourlyForecast = function (data) {
 }
 
 const displayDailyForecast = function (data) {
+    // data argument should receive the whole response,
+    // this function is responsible with finding the daily forecast
+
+    const timeZoneId = data.location.tz_id;
     const dailyObjArr = [];
     for(let i = 1; i <= 2; i++) {
         // Note: free tier weatherAPI only allows forecast upto 3 days
@@ -171,12 +168,19 @@ const displayDailyForecast = function (data) {
         // Push the next 2 days forecast obj to dailyObjArr
         dailyObjArr.push(data.forecast.forecastday[i]);
     }
-    
+    console.log(data);
+    console.log(dailyObjArr);
+
     const createDailyDisplay = function (dailyObj) {
-        const dateObj = new Date(dailyObj.date_epoch * 1000);
-        const dateString = format(dateObj, 'MM/dd');
-        const dateStringFull = format(dateObj, 'MMMM d, yyyy');
-        const weekDay = format(dateObj, 'EEEE');
+        // Note: Date used is not calculated through epoch, since it creates discrepancy to change of timezone
+        // epoch received is relative to client date
+
+        const dailyObjDate = parse(dailyObj.date, 'yyyy-MM-dd', new Date());
+
+        const dateString = format(dailyObjDate, 'MM/dd');
+        const dateStringFull = format(dailyObjDate, 'MMMM d, yyyy');
+        const weekDay = format(dailyObjDate, 'EEEE');
+
         const condition = dailyObj.day.condition.text;
         const cdnIcon = dailyObj.day.condition.icon; // src url
         const tempUnit = getUserPref('tempUnit');
@@ -228,7 +232,7 @@ const displayDailyForecast = function (data) {
 }
 
 // Refreshes DOM before appending new Forecast
-const refreshDisplay = function (data) {
+const refreshDisplay = function () {
 
     // Hourly forecast
     const hourlyCont = domElem('div#hourly-forecast-cont');
@@ -253,7 +257,6 @@ const displayDataToDOM = function (data) {
     displayHourlyForecast(data);
     displayDailyForecast(data);
 }
-
 
 
 export {displayMainData, displayHourlyForecast, displayDataToDOM}

@@ -25,13 +25,17 @@ const getLocationWeather = async function (location) {
     // Get data from API using locationVal
     const forecastData = await getDataFromAPI(locationVal);
     
-    if (forecastData !== 'error') {
+    if (Object.hasOwn(forecastData, 'error')) {
+        console.log(forecastData.error.message);
+
+    } else if (forecastData !== 'error') {
         // After getting data from API, save data to memoryHandler
         setForecastData(forecastData);
 
         // Displays data to DOM upon clicking search button
         displayDataToDOM(forecastData);
-    }
+
+    } 
 
 }
 
