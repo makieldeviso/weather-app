@@ -120,16 +120,29 @@ div#options-banner {
     align-items: center;
 }
 
-button#settings {
+button.options-button {
     background-color: transparent;
-    background-image: url("./assets/cog.svg");
-    background-size: 70%;
-    background-position: center;
-    background-repeat: no-repeat;
     border: none;
-    width: 40px;
-    height: 40px;   
+    width: 30px;
+    height: 30px;  
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+svg#settings-icon {
+    fill: var(--darker-color);
+}
+
+button.options-button:hover {
+    filter: brightness(1.3);
+}
+
+button.options-button:active {
+    transform: scale(0.9);
+}
+
 
 /* Header (end) */
 
@@ -154,24 +167,34 @@ input#city-search-field {
 
 button:hover {
     cursor: pointer;
+    transition: filter 0.1s ease-in-out, transform 0.1s ease-in-out;
 }
 
 button#city-search-button {
-    background-image: url(./assets/search.svg);
-    background-position: center;
-    background-size: 70%;
-    background-repeat: no-repeat;
     width: 30px;
     height: 30px;
     border: 2px solid var(--darker-color);
     background-color: var(--darker-color);
     border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+svg#search-icon {
+    fill: var(--light-color);
+    width: 80%;
+    height: 80%;
 }
 
 button#city-search-button:hover {
     filter: brightness(1.1);
 }
 
+button#city-search-button:active {
+    transform: scale(0.9);
+}
 
 div#condition-bg {    
     background-position: center;
@@ -240,13 +263,13 @@ p#city span#city-text {
 }
 
 p#city span#pin-icon {
-    background-image: url(./assets/map-marker.svg);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
     width: calc(var(--header-font-size) * 1.1);
-    height: 70%;
+    height: 100%;
     margin: auto;
+}
+
+p#city span#pin-icon svg.intext-icon {
+    fill: var(--darker-color);
 }
 
 p#country {
@@ -332,11 +355,12 @@ div.stat {
     width: max-content;
 }
 
-img.stat-icon {
+svg.stat-icon {
     grid-area: stat-icon;
     margin-right: 5px;
     width: var(--small-icon-size);
     height: var(--small-icon-size);
+    fill: var(--light-color);
 }
 
 p.stat-label {
