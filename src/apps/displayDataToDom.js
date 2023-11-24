@@ -1,7 +1,7 @@
 import { format } from "date-fns";
-import { getForecastData } from "./memoryHandler";
 import { getDayForecast } from "./forecastScripts";
 import { getUserSettings, getUserPref} from "./userSettings";
+import { getLocalTimeOfSearched } from "./timeScript";
 
 // Reusable Shorter DOM selector
 const domElem  = function (selector) {
@@ -28,13 +28,10 @@ const createCdnIcon = function ( assignClass, time, condition, iconUrl ) {
     return weatherIcon;
 }
 
-
 const displayMainData = function (data) {
     const forecastData = data;
     const userSettings = getUserSettings();
     const {tempUnit, precipUnit, windUnit} = userSettings;
-
-    console.log(forecastData);
 
     // DOM elements
     const cityName = domElem('p#city span#city-text');
@@ -56,7 +53,7 @@ const displayMainData = function (data) {
     // Value
     const locationName = forecastData.location.name;
     const locationCountry = forecastData.location.country;
-    const todayDate = format(new Date(), 'eee, MMMM d, yyyy ');
+    const todayDate = getLocalTimeOfSearched(data, 'day_date');
     const mainTempHeroVal = forecastData.current[`temp_${tempUnit}`];
     const conditionVal = forecastData.current.condition.text;
     const mainTempHighVal = getDayForecast(forecastData, 0, 'day')[`maxtemp_${tempUnit}`];
@@ -99,26 +96,37 @@ const displayMainData = function (data) {
 const displayHourlyForecast = function (data) {
     // data argument should receive the whole response,
     // this function is responsible with finding the hourly forecast
-    const currentTime = Number(format(new Date(), 'H'));
+    const currentHour = Number(getLocalTimeOfSearched(data, 'current_hour'));
+
     const currentHourlyData = data.forecast.forecastday[0].hour;
     const tomHourlyData = data.forecast.forecastday[1].hour;
     const hourlyObjArr = [];
 
     // Pushes hourly forecast to hourlyObjArr from next hour of current hour until end of current day
-    for (let i =( currentTime + 1 ); i < currentHourlyData.length; i++) {
-        hourlyObjArr.push(currentHourlyData[i]);
+    for (let i =( currentHour + 1 ); i < currentHourlyData.length; i++) {
+        const newHourlyData = currentHourlyData[i];
+
+        // Add (tz_id) Time Zone id to be used for further execution\
+        newHourlyData.tz_id = data.location.tz_id;
+        newHourlyData.hourly_forecast = true;
+        hourlyObjArr.push(newHourlyData);
     }
 
      // Pushes hourly forecast to hourlyObjArr from start of next day until same hour of current hour
-     for (let i = 0; i <= currentTime; i++) {
-        hourlyObjArr.push(tomHourlyData[i]);
+     for (let i = 0; i <= currentHour; i++) {
+
+        const newHourlyData = tomHourlyData[i];
+        // Add (tz_id) Time Zone id to be used for further execution\
+        newHourlyData.tz_id = data.location.tz_id;
+        newHourlyData.hourly_forecast = true;
+        hourlyObjArr.push(newHourlyData);
     }
 
     // Creates and return individual hourly forecast
     const createHourlyDisplay = function (hourlyObj) {
         // hourlyObj parameter receives individual hourly forecast object 
-        const dateObj = new Date(hourlyObj.time_epoch * 1000);
-        const hourString = format(dateObj, 'HH:ss'); // time in string 00:00 format
+        // const dateObj = new Date(hourlyObj.time_epoch * 1000);
+        const hourString = getLocalTimeOfSearched(hourlyObj, 'current_time'); // time in string 00:00 format
         const condition = hourlyObj.condition.text; // condition description string
         const cdnIcon = hourlyObj.condition.icon; // src url
         const tempUnit = getUserPref('tempUnit');
@@ -165,7 +173,6 @@ const displayDailyForecast = function (data) {
     }
     
     const createDailyDisplay = function (dailyObj) {
-        console.log(dailyObj);
         const dateObj = new Date(dailyObj.date_epoch * 1000);
         const dateString = format(dateObj, 'MM/dd');
         const dateStringFull = format(dateObj, 'MMMM d, yyyy');
@@ -175,7 +182,6 @@ const displayDailyForecast = function (data) {
         const tempUnit = getUserPref('tempUnit');
         const maxTempVal = Math.round(dailyObj.day[`maxtemp_${tempUnit}`]);
         const minTempVal = Math.round(dailyObj.day[`mintemp_${tempUnit}`]);
-        console.log(weekDay);
 
         const dailyDisplay = document.createElement('div');
         dailyDisplay.setAttribute('class', 'daily-forecast');
