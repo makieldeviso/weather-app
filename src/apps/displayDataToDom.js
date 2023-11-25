@@ -2,6 +2,7 @@ import { format, parse } from "date-fns";
 import { getDayForecast } from "./forecastScripts";
 import { getUserSettings, getUserPref} from "./userSettings";
 import { getLocalTimeOfSearched } from "./timeScript";
+import { changeBackground } from "./changeConditionDisplay";
 
 // Reusable Shorter DOM selector
 const domElem  = function (selector) {
@@ -34,6 +35,7 @@ const displayMainData = function (data) {
     const userSettings = getUserSettings();
     const {tempUnit, precipUnit, windUnit} = userSettings;
 
+    changeBackground(forecastData);
     // DOM elements
     const cityName = domElem('p#city span#city-text');
     const countryName = domElem('p#country');
@@ -113,7 +115,7 @@ const displayHourlyForecast = function (data) {
      for (let i = 0; i <= currentHour; i++) {
         hourlyObjArr.push(tomHourlyData[i]);
     }
-    console.log(hourlyObjArr);
+    
     // Creates and return individual hourly forecast
     const createHourlyDisplay = function (hourlyObj) {
         // hourlyObj parameter receives individual hourly forecast object 
@@ -168,8 +170,6 @@ const displayDailyForecast = function (data) {
         // Push the next 2 days forecast obj to dailyObjArr
         dailyObjArr.push(data.forecast.forecastday[i]);
     }
-    console.log(data);
-    console.log(dailyObjArr);
 
     const createDailyDisplay = function (dailyObj) {
         // Note: Date used is not calculated through epoch, since it creates discrepancy to change of timezone

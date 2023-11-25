@@ -227,13 +227,13 @@ main.night div#condition-bg.clear {
     filter: opacity(0.8);
 }
 
-main.day-rainy div#condition-bg.rainy {
+main.day-dark div#condition-bg.rainy {
     background-image: url(./assets/rainy.gif);
     background-image: url(./assets/dark-clouds.png);
     filter: opacity(0.3);
 }
 
-main.day-rainy {
+main.day-dark {
     background: linear-gradient(#678fae, #366586);
 }
 
