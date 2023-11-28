@@ -5,8 +5,9 @@ const userDefault = function () {
     const tempUnit = 'c';
     const precipUnit = 'mm';
     const windUnit = 'kph';
+    const otherUnits = 'metric';
 
-    return {city, country, tempUnit, precipUnit, windUnit};
+    return {city, country, tempUnit, precipUnit, windUnit, otherUnits};
 }
 
 const setInitial = function () {
@@ -24,5 +25,12 @@ const getUserPref = function (property) {
     const userSettings = JSON.parse(localStorage.weatherAppSettings);
     return userSettings[property];
 }
+
+// const setUserPref = function (property) {
+//     const userSettings = localStorage.
+
+
+//     localStorage.setItem(property, )
+// }
 
 export {setInitial, getUserSettings, getUserPref}

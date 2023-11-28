@@ -14,8 +14,6 @@ const changeBackground = function (data) {
     const isClear = conditionCode === clear;
     const isCloudy = cloudy.includes(conditionCode);
     
-    console.log(isCloudy);
-
     if (isDay && isClear) {
        main.setAttribute('class', 'day');
        conditionBg.setAttribute('class', 'clear');
@@ -39,8 +37,13 @@ const changeBackground = function (data) {
     } else if (!isDay && !isCloudy && !isClear) {
         main.setAttribute('class', 'night');
         conditionBg.setAttribute('class', 'cloudy');
+
+    } else {
+        // fallback
+        main.setAttribute('class', 'day');
+        conditionBg.setAttribute('class', 'cloudy');
     }
 
-}   
+}  
 
 export {changeBackground}
