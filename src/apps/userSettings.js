@@ -35,7 +35,6 @@ const setUserPref = function (settingsObj) {
     // Stringify modifiedSettings then apply changes to local Storage
     const newSettings = JSON.stringify(modifiedSettings);
     localStorage.setItem('weatherAppSettings', newSettings);
-
 }
 
 export {setInitial, getUserSettings, getUserPref, setUserPref}

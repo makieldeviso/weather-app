@@ -162,7 +162,6 @@ const displayDailyForecast = function (data) {
     // data argument should receive the whole response,
     // this function is responsible with finding the daily forecast
 
-    const timeZoneId = data.location.tz_id;
     const dailyObjArr = [];
     for(let i = 1; i <= 2; i++) {
         // Note: free tier weatherAPI only allows forecast upto 3 days

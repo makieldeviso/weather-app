@@ -17,7 +17,7 @@ const getDataFromAPI = async function (location) {
         forecastObj = parsedData;
 
     } catch(err) {
-        forecastObj.error = 'no data received';
+        forecastObj.error = {message:'no data received'};
     }
     console.log(forecastObj);
     return forecastObj;

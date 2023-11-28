@@ -1,4 +1,5 @@
 import { getUserSettings, setUserPref } from "./userSettings";
+import { displayDataToDOM } from "./displayDataToDom";
 
 const settingsTab = document.querySelector('div#settings-tab');
 
@@ -41,9 +42,18 @@ const saveSettings = () => {
         otherUnitsMod = createOtherUnitsMod(otherUnitsSelected);
     }
 
-    // consolidate changes then execute setUserPref to change settings
+    // consolidate changes into one object
     const allMods = {...tempUnitMod, ...otherUnitsMod};
-    setUserPref(allMods)
+
+    // If modification were made execute setUserPref to change settings
+    if (Object.keys(allMods).length !== 0) {
+        setUserPref(allMods);
+
+        // Display data to DOM using last forecast data saved in local storage
+        const { lastDataReceived } = getUserSettings();
+        displayDataToDOM(lastDataReceived);
+    }
+    
 }
 
 const openSettings = function () {
@@ -68,8 +78,6 @@ const openSettings = function () {
     }
     
 }
-
-
 
 const assignSettingsBtnEvent = function () {
     const settingsBtn = document.querySelector('button#settings');
