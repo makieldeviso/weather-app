@@ -26,11 +26,16 @@ const getUserPref = function (property) {
     return userSettings[property];
 }
 
-// const setUserPref = function (property) {
-//     const userSettings = localStorage.
+const setUserPref = function (settingsObj) {
+    // Note: settingsObj parameter receives an object with keyvalue pair
+    //  to be modified to the settings
+    const userSettings = getUserSettings();
+    const modifiedSettings = Object.assign(userSettings, settingsObj);
 
+    // Stringify modifiedSettings then apply changes to local Storage
+    const newSettings = JSON.stringify(modifiedSettings);
+    localStorage.setItem('weatherAppSettings', newSettings);
 
-//     localStorage.setItem(property, )
-// }
+}
 
-export {setInitial, getUserSettings, getUserPref}
+export {setInitial, getUserSettings, getUserPref, setUserPref}

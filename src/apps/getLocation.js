@@ -1,7 +1,7 @@
 import { getDataFromAPI } from "./getData";
 import { setForecastData, getForecastData } from "./memoryHandler";
 import { displayDataToDOM } from "./displayDataToDom";
-import { getUserPref } from "./userSettings";
+import { getUserPref, setUserPref } from "./userSettings";
 
 const locationBar = document.querySelector('input#city-search-field');
 const searchBtn = document.querySelector('button#city-search-button');
@@ -28,13 +28,20 @@ const getLocationWeather = async function (location) {
     if (Object.hasOwn(forecastData, 'error')) {
         console.log(forecastData.error.message);
 
-    } else if (forecastData !== 'error') {
+    } else {
         // After getting data from API, save data to memoryHandler
         setForecastData(forecastData);
 
         // Displays data to DOM upon clicking search button
         displayDataToDOM(forecastData);
 
+        // Update user settings and save last data to localStorage
+        const updateSettings = {
+            city: forecastData.location.name,
+            country: forecastData.location.country,
+            lastDataReceived: forecastData
+        };
+        setUserPref(updateSettings);
     } 
 
 }

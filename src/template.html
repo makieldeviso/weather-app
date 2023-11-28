@@ -34,29 +34,29 @@
 
         <div id="settings-tab" class="closed">
             <p>Settings</p>
-            <fieldset id="set-temp-unit">
+            <fieldset class="setting-field" id="set-temp-unit">
                 <legend>Temperature Unit</legend>
                 <div class="radio-cont">
                     <input type="radio" id="celsius" name="temp-unit" value="c">
                     <label for="celsius">&deg;Celsius</label>
                 </div>
 
-                <div class="radio-con">
-                    <input type="radio" id="fahrenheit" name="temp-unit" value="c">
+                <div class="radio-cont">
+                    <input type="radio" id="fahrenheit" name="temp-unit" value="f">
                     <label for="fahrenheit">&deg;Fahrenheit</label>
                 </div>
             </fieldset>
 
-            <fieldset id="set-other-units">
+            <fieldset class="setting-field" id="set-other-units">
                 <legend>Other Units</legend>
                 <div class="radio-cont">
                     <input type="radio" id="metric" name="other-units" value="metric">
-                    <label for="metric">Metric (mm, kph)</label>
+                    <label for="metric">Metric <span class="sample-measure">(mm, kph)</span></label>
                 </div>
 
-                <div class="radio-con">
+                <div class="radio-cont">
                     <input type="radio" id="english" name="other-units" value="english">
-                    <label for="english">English (in, mph)</label>
+                    <label for="english">English <span class="sample-measure">(in, mph)</span></label>
                 </div>
             </fieldset>
 
