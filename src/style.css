@@ -43,6 +43,7 @@ body {
     grid-template-rows: var(--header-height) var(--main-height) var(--footer-height);
 }
 
+/* Loading Screen (start) */
 div#loading-screen {
     background-color: rgba(4, 53, 73, 0.5);
     width: 100vw;
@@ -96,6 +97,7 @@ svg#spinner-icon {
         transform: rotate(360deg);
     }
 }
+/* Loading Screen (end) */
 
 main {
     position: relative;
@@ -322,14 +324,7 @@ button#save-settings-btn {
     color: var(--darkest-color);
     margin-bottom: calc(var(--common-margin) * 0.5);
 }
-
-
-
-
 /* Settings tab (end) -- */
-
-
-
 /* Header (end) */
 
 /* Main (start) */
@@ -636,7 +631,6 @@ p.daily-high, p.daily-low {
 }
 
 /* daily-forecast (end) */
-
 /* Main (end) */
 
 /* Footer (start) */
@@ -686,6 +680,8 @@ div#footer-cont a img {
     width: var(--common-font-size);
     height: var(--common-font-size);
 }
-
-
 /* Footer (end) */
+
+/* Initial load (start) */
+
+/* Initial load (end) */

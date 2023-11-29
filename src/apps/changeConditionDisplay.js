@@ -41,7 +41,7 @@ const changeBackground = function (data) {
     } else {
         // fallback
         main.setAttribute('class', 'day');
-        conditionBg.setAttribute('class', 'cloudy');
+        conditionBg.setAttribute('class', 'clear');
     }
 
 }  

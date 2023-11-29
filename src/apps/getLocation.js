@@ -1,6 +1,6 @@
 import { getDataFromAPI } from "./getData";
 import { setForecastData, getForecastData } from "./memoryHandler";
-import { displayDataToDOM } from "./displayDataToDom";
+import { displayDataToDOM, hideElements } from "./displayDataToDom";
 import { getUserPref, setUserPref } from "./userSettings";
 import { loadSpinner } from "./addLoadingScreen";
 
@@ -55,9 +55,15 @@ const getLocationWeather = async function (location) {
 }
 
 // Loads the default weather according to the preferences saved in local storage
-const onLoadLocationWeather = function () {
+const onLoadLocationWeather = async function () {
     const defaultLocation = getUserPref('city');
-    getLocationWeather(defaultLocation);
+
+    // hides element on load if no data yet
+    hideElements(true);
+
+    await getLocationWeather(defaultLocation); // async/ fetch
+
+    hideElements(false);
 }
 
 

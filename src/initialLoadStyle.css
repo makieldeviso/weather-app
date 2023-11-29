@@ -1,0 +1,6 @@
+div#options-banner.hidden,
+div#city-search.hidden,
+div#current-display.hidden,
+div#forecast-display.hidden {
+    visibility: hidden;
+}
