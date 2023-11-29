@@ -23,4 +23,4 @@ const getDataFromAPI = async function (location) {
 }
 
 
-export {getDataFromAPI};
+export {getDataFromAPI};    

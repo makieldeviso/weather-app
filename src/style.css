@@ -272,6 +272,7 @@ button#save-settings-btn {
 /* Header (end) */
 
 /* Main (start) */
+
 /* Error message (start) - */
 div#error-message-cont {
     display: grid;
@@ -689,3 +690,69 @@ div#footer-cont a img {
     height: var(--common-font-size);
 }
 /* Footer (end) */
+
+/* Loading Screen (start) */
+div#loading-screen {
+    background-color: rgba(4, 53, 73, 0.5);
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+div#spinner {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: var(--darker-color);
+    padding: 15px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid var(--yellow-color);
+    box-shadow: 0 0 5px 2px var(--base-color);
+}
+
+svg#spinner-load {
+    width: 100%;
+    height: 100%;
+    fill: var(--light-color);
+    
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    animation: rotate-spinner 1s linear infinite;
+}
+
+svg#spinner-icon {
+    width: 60%;
+    height: 60%;
+    fill: var(--light-color);
+}
+
+@keyframes rotate-spinner {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+/* Loading Screen (end) */
+
+/* initial Load Style (start) */
+div#options-banner.hidden,
+div#current-display.hidden,
+div#forecast-display.hidden {
+    visibility: hidden;
+}
+
+
+/* initial Load Style (end) */
