@@ -3,6 +3,7 @@ import { setForecastData, getForecastData } from "./memoryHandler";
 import { displayDataToDOM, hideElements } from "./displayDataToDom";
 import { getUserPref, setUserPref } from "./userSettings";
 import { loadSpinner } from "./addLoadingScreen";
+import { showAlertMessage } from "./showAlertMessage";
 
 const locationBar = document.querySelector('input#city-search-field');
 const searchBtn = document.querySelector('button#city-search-button');
@@ -35,6 +36,7 @@ const getLocationWeather = async function (location) {
 
     if (Object.hasOwn(forecastData, 'error')) {
         console.log(forecastData.error.message);
+        showAlertMessage();
 
     } else {
         // After getting data from API, save data to memoryHandler
@@ -58,12 +60,12 @@ const getLocationWeather = async function (location) {
 const onLoadLocationWeather = async function () {
     const defaultLocation = getUserPref('city');
 
-    // hides element on load if no data yet
-    hideElements(true);
+    // hides element on load if no data yet, then revert visibility after api call
+    hideElements(true); // hide
 
     await getLocationWeather(defaultLocation); // async/ fetch
 
-    hideElements(false);
+    hideElements(false); // unhide
 }
 
 

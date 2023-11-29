@@ -259,18 +259,11 @@ const displayDataToDOM = function (data) {
 // Page On load/ No initial Data
 // Note: this hides default elements on screen when the page initially loads without data from API
 const hideElements = function (action) {
-    // const locationPin = document.querySelector('span#pin-icon svg');
-
-    // const highLowText = document.querySelectorAll('div#high-low-temp p');
-
-    // const moreStatsText = document.querySelectorAll('div#more-stats p');
-    // const moreStatsIcon = document.querySelectorAll('div#more-stats svg');
     const optionsBanner = document.querySelector('div#options-banner');
-    const searchBarArea = document.querySelector('div#city-search');
     const currentDisplayArea = document.querySelector('div#current-display');
     const forecastArea = document.querySelector('div#forecast-display');
 
-    const areaComponents = [optionsBanner, searchBarArea, currentDisplayArea, forecastArea];
+    const areaComponents = [optionsBanner, currentDisplayArea, forecastArea];
     
     if (action) {
         areaComponents.forEach(component => component.classList.add('hidden'));

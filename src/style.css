@@ -43,62 +43,6 @@ body {
     grid-template-rows: var(--header-height) var(--main-height) var(--footer-height);
 }
 
-/* Loading Screen (start) */
-div#loading-screen {
-    background-color: rgba(4, 53, 73, 0.5);
-    width: 100vw;
-    height: 100vh;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 2;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-div#spinner {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background-color: var(--darker-color);
-    padding: 15px;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 2px solid var(--yellow-color);
-    box-shadow: 0 0 5px 2px var(--base-color);
-}
-
-svg#spinner-load {
-    width: 100%;
-    height: 100%;
-    fill: var(--light-color);
-    
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    animation: rotate-spinner 1s linear infinite;
-}
-
-svg#spinner-icon {
-    width: 60%;
-    height: 60%;
-    fill: var(--light-color);
-}
-
-@keyframes rotate-spinner {
-    from {
-        transform: rotate(0);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-}
-/* Loading Screen (end) */
-
 main {
     position: relative;
     z-index: 1;
@@ -328,6 +272,70 @@ button#save-settings-btn {
 /* Header (end) */
 
 /* Main (start) */
+/* Error message (start) - */
+div#error-message-cont {
+    display: grid;
+    grid-template-areas: 
+        "error-icon error-message close-error-btn"
+        "error-icon more-error-message close-error-btn";
+    grid-template-columns: max-content 1fr;
+    gap: var(--common-padding);
+    align-items: center;
+
+    background-color: rgb(236, 218, 226);
+    padding: var(--common-padding);
+    width: 50vw;
+    min-width: max-content;
+    border-radius: 15px;
+    position: absolute;
+    top: var(--common-padding);
+    left: var(--common-padding);
+    border: 1px solid red;
+}
+
+svg#alert-icon {
+    grid-area: error-icon;
+    width: var(--small-icon-size);
+    height: var(--small-icon-size);
+    fill: red;
+    align-self: start;
+}
+
+p#error-message,
+p#more-error-message {
+    font-size: calc(var(--common-font-size) * 0.8);
+    text-shadow: none;
+    color: red;
+    height: 100%;
+    width: 100%;
+}
+
+p#error-message {
+    grid-area: error-message;
+}
+
+p#more-error-message {
+    grid-area: more-error-message;
+}
+
+button#close-error {
+    grid-area: close-error-btn;
+    width: calc(var(--small-icon-size) * 0.8);
+    height: calc(var(--small-icon-size) * 0.8);
+    border-radius: 50%;
+    border: none;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    align-self: start;
+}
+button#close-error svg {
+    fill: red;
+}
+/* Error message (end) - */
+
 div#city-search {
     width: 450px;
     max-width: 90vw;
@@ -387,7 +395,7 @@ div#condition-bg {
     top: 0;
     left: 0;
     width: 100%;
-    height: 80%;
+    height: 100%;
     z-index: -1;
 }
 
@@ -681,7 +689,3 @@ div#footer-cont a img {
     height: var(--common-font-size);
 }
 /* Footer (end) */
-
-/* Initial load (start) */
-
-/* Initial load (end) */

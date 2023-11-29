@@ -1,6 +1,5 @@
 const baseURL = 'https://api.weatherapi.com/v1';
-const apiKey = `39350a4b141049a684c17453523241`;
-// const location = 'tacloban';
+const apiKey = `39350a4b141049a684c174535232410`;
 
 const getDataFromAPI = async function (location) {
     const forecastRequestURL = `${baseURL}/forecast.json?key=${apiKey}&q=${location}&days=3`;

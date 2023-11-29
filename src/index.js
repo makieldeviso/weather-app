@@ -1,5 +1,6 @@
 import css from "./style.css";
 import initialLoadStyleCss from "./initialLoadStyle.css";
+import loadingScreenStyle from "./loadingScreenStyle.css";
 import { assignSearchBtnEvent, onLoadLocationWeather } from "./apps/getLocation";
 import { setInitial } from "./apps/userSettings";
 import { assignSettingsBtnEvent } from "./apps/settings";
