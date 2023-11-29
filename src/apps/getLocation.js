@@ -2,6 +2,7 @@ import { getDataFromAPI } from "./getData";
 import { setForecastData, getForecastData } from "./memoryHandler";
 import { displayDataToDOM } from "./displayDataToDom";
 import { getUserPref, setUserPref } from "./userSettings";
+import { loadSpinner } from "./addLoadingScreen";
 
 const locationBar = document.querySelector('input#city-search-field');
 const searchBtn = document.querySelector('button#city-search-button');
@@ -22,9 +23,16 @@ const getLocationWeather = async function (location) {
         return;
     }
     
+    // Add load spinner/ loading screen
+    // Note: load and remove upon api fetch
+    loadSpinner(true);
+
     // Get data from API using locationVal
     const forecastData = await getDataFromAPI(locationVal);
     
+    // Add load spinner/ loading screen
+    loadSpinner(false);
+
     if (Object.hasOwn(forecastData, 'error')) {
         console.log(forecastData.error.message);
 
