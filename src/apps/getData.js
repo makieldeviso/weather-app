@@ -4,7 +4,6 @@ const apiKey = `39350a4b141049a684c174535232410`;
 const getDataFromAPI = async function (location) {
     const forecastRequestURL = `${baseURL}/forecast.json?key=${apiKey}&q=${location}&days=3`;
 
-    let forecastObj = {}
     try {
         const forecastResponse = await fetch(forecastRequestURL, {
             method: "GET",
@@ -13,14 +12,14 @@ const getDataFromAPI = async function (location) {
 
         const parsedData = await forecastResponse.json();
 
-        forecastObj = parsedData;
+        return parsedData;
 
     } catch(err) {
-        forecastObj.error = {message:'no data received'};
+        const forecastObj = {};
+        forecastObj.error = {message:'Connection timed out'};
+        
+        return forecastObj;
     }
-    console.log(forecastObj);
-    return forecastObj;
 }
-
 
 export {getDataFromAPI};    

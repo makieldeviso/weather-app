@@ -35,8 +35,7 @@ const getLocationWeather = async function (location) {
     loadSpinner(false);
 
     if (Object.hasOwn(forecastData, 'error')) {
-        console.log(forecastData.error.message);
-        showAlertMessage();
+        showAlertMessage(forecastData);
 
     } else {
         // After getting data from API, save data to memoryHandler
@@ -65,7 +64,14 @@ const onLoadLocationWeather = async function () {
 
     await getLocationWeather(defaultLocation); // async/ fetch
 
-    hideElements(false); // unhide
+    // if initial data fetch fails and no previous data is saved, continue hiding blank elements
+    if (getUserPref('lastDataReceived')) {
+        hideElements(false); // unhide
+
+        const lastDataReceived = getUserPref('lastDataReceived');
+        displayDataToDOM(lastDataReceived);
+    }
+
 }
 
 
