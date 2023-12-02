@@ -279,16 +279,18 @@ div#city-search {
     display: grid;
     grid-template-columns: 1fr max-content;
     justify-items: center;
+    align-items: center;
     margin: var(--common-margin) auto;
     gap: 10px;
 }
 
 input#city-search-field {
     width: 100%;
-    height: 30px;
+    /* height: 30px; */
     border: 2px solid var(--darker-color);
     border-radius: 10px;
-    padding: 0 var(--common-padding);
+    padding: var(--common-padding) 10px;
+    font-size: var(--common-font-size);
 }
 
 button:hover {
@@ -297,8 +299,8 @@ button:hover {
 }
 
 button#city-search-button {
-    width: 30px;
-    height: 30px;
+    width: calc(var(--common-font-size) + var(--common-padding) + 10px);
+    height: calc(var(--common-font-size) + var(--common-padding) + 10px);
     border: 2px solid var(--darker-color);
     background-color: var(--darker-color);
     border-radius: 50%;
@@ -366,7 +368,7 @@ main.day-dark {
 div#location-display {
     display: grid;
     grid-template-columns: max-content 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 1fr max-content;
     grid-template-areas: 
         "city city"
         "country country";
@@ -411,25 +413,31 @@ div#date-display {
 
 div#date-display p {
     font-size: calc(var(--common-font-size) * 0.8);
+    align-self: center;
 }
 
 div#main-temp-display {
    display: grid;
    grid-template-columns: max-content max-content;
+   grid-template-areas: 
+    "main-temp main-unit"
+    "main-condition main-condition";
    width: max-content;
-   margin: calc(var(--common-margin) * 2) auto; 
-   margin-bottom: 0;
+   margin: auto; 
    align-content: center;
    justify-content: center;
+   row-gap: var(--common-margin);
 }
 
 p#main-temp {
+    grid-area: main-temp;
     font-size: calc(var(--header-font-size) * 4);
     font-family: var(--header-font-family);
     line-height: 1;
 }
 
 p#main-unit {
+    grid-area: main-unit;
     display: grid;
     grid-template-columns: repeat(2, max-content);
     font-size: calc(var(--header-font-size) * 2);
@@ -445,40 +453,53 @@ span.units {
     align-self: center;
 }
 
-div#condition-display {
-    margin: 0 0 calc(var(--common-margin) * 2);
-}
-
 p#main-condition {
+    grid-area: main-condition;
     text-align: center;
     font-size: calc(var(--common-font-size) * 1.1);
 }
 
 div#high-low-temp {
     display: flex;
-    gap: 5px;
+    gap: var(--common-margin);
     justify-content: center;
-    margin: var(--common-margin);
+    align-items: center;
+}
+
+div#high-low-temp p {
+    font-size: var(--common-font-size);
 }
 
 div#more-stats {
-    display: grid;
+    /* display: grid;
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    row-gap: 5px;
+    row-gap: var(--common-margin);
     margin: var(--common-margin) auto calc(var(--common-margin) * 2);
+    justify-content: center; */
+
+    display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    /* column-gap: 15px; */
+    gap: 5px;
+    margin: auto;
+
     width: 450px;
-    max-width: 90vw;
+    max-width: 95vw;
 }
 
 div.stat {
     display: grid;
-    font-size: calc(var(--common-font-size) * 0.8);
     grid-template-areas:
         "stat-icon stat-label"
         "stat-icon stat-value";
-    width: max-content;
+    grid-template-columns: max-content 1fr;
+    width: 30%;
+    min-width: max-content;
+    justify-items: center;
+}
+
+div.stat p {
+    font-size: calc(var(--common-font-size) * 0.8);
 }
 
 svg.stat-icon {
@@ -508,16 +529,23 @@ p.wind-dir {
 }
 
 /* hourly forecast (start) */
+div#forecast-display {
+    display: flex;
+    flex-direction: column;
+    gap: var(--common-padding);
+    align-items: center;
+    justify-content: center;
+    margin: var(--common-margin) 0;
+}
+
+
 div#hourly-forecast-cont {
     display: grid;
     grid-template-columns: repeat(25, max-content);
     gap: 10px;
-    margin: var(--common-margin) auto;
-    padding: var(--common-padding);
-    padding-bottom: calc(var(--common-padding) * 2);
+    padding: calc(var(--common-padding) * 2) var(--common-padding);
     width: 90vw;
     overflow-x: scroll;
-
 }
 
 div.hourly-forecast {
@@ -525,9 +553,8 @@ div.hourly-forecast {
     flex-direction: column;
     row-gap: 5px;
     align-items: center;
-    width: 50px;
     text-align: center;
-    padding: 3px;
+    padding: 5px;
     border-radius: 5px;
     background-color: rgb(219, 255, 251, 0.3);
 }
@@ -639,8 +666,8 @@ div#error-message-cont {
 
     background-color: rgb(236, 218, 226);
     padding: var(--common-padding);
-    width: 50vw;
-    min-width: max-content;
+    width: 80vw;
+    min-width: 250px;
     border-radius: 15px;
     position: absolute;
     top: var(--common-padding);

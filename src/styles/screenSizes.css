@@ -1,0 +1,165 @@
+/* Display layout */
+main {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-areas:
+        "search-bar"
+        "current-display"
+        "forecast-display";
+    grid-template-rows: max-content 1fr max-content;
+}
+div#city-search {
+    grid-area: search-bar;
+}
+
+div#current-display {
+    grid-area: current-display;
+}
+
+div#forecast-display {
+    grid-area: forecast-display;
+    align-self: end;
+}
+
+div#current-display {
+    display: grid;
+    grid-template-areas: 
+        "location-display"
+        "date-display"
+        "main-temp-display"
+        "high-low-temp"
+        "more-stats";
+    grid-template-rows: repeat(2, max-content) 1fr repeat(2, max-content);
+    row-gap: var(--common-margin);
+}
+
+div#location-display {
+    grid-area: location-display;
+}
+div#date-display {
+    grid-area: date-display;
+}
+div#main-temp-display {
+    grid-area: main-temp-display;
+}
+div#condition-display {
+    grid-area: condition-display;
+}
+div#high-low-temp {
+    grid-area: high-low-temp;
+}
+div#more-stats {
+    grid-area: more-stats;
+}
+
+
+/* Display layout */
+
+
+/* small devices */
+@media (hover:none) {
+    
+}
+
+@media only screen and (min-width: 280px) {
+    :root {
+        --header-font-size: 1rem;
+        --common-font-size: 0.8rem;
+        --title-font-size: 1.1rem;
+    } 
+}
+
+@media only screen and (min-width: 375px) {
+    :root {
+        --header-font-size: 1.2rem;
+        --common-font-size: 0.9rem;
+        --title-font-size: 1.2rem;
+    }       
+}
+
+@media only screen and (min-width: 390px) {
+    :root {
+        --header-font-size: 1.3rem;
+        --common-font-size: 1rem;
+        --title-font-size: 1.3rem;
+    }
+
+    div#current-display {
+        margin-top: calc(var(--common-margin) * 2);
+        row-gap: calc(var(--common-margin) * 1.5);
+    }      
+}
+
+@media only screen and (min-width: 414px) {
+    :root {
+        --header-font-size: 1.5rem;
+        --common-font-size: 1.2rem;
+        --title-font-size: 1.5rem;
+    }
+}
+
+/* Tablet */
+@media only screen and (min-width: 768px) and (min-height: 1024px) {
+    :root {
+        --icon-size: 50px;
+        --small-icon-size: 35px;
+        --settings-btn-size: 35px;
+
+        --header-font-size: 1.4rem;
+        --common-font-size: 1.2rem;
+        --title-font-size: 1.3rem;
+
+        --common-padding: 10px;
+        --common-margin: 15px;
+    }
+
+    div#hourly-forecast-cont {
+        gap: 15px;
+    }
+
+    div.hourly-forecast {
+        padding: 10px;
+        gap: 10px;
+    }
+
+    div#error-message-cont {
+        width: 60vw;
+        min-width: 300px;
+    }
+
+    div#settings-tab.open {
+        width: 250px;
+    }
+}
+
+@media only screen and (min-width: 768px) and (min-height: 1024px) {
+    :root {
+        --header-font-size: 1.5rem;
+        --common-font-size: 1.3rem;
+        --title-font-size: 1.5rem;
+    }
+}
+
+@media only screen and (min-width: 1024px) and (min-height: 1366px) {
+    :root {
+        --header-font-size: 1.8rem;
+        --common-font-size: 1.5rem;
+        --title-font-size: 1.8rem;
+    }
+
+    div#more-stats {
+        width: 70%;
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
