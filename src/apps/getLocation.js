@@ -1,5 +1,5 @@
 import { getDataFromAPI } from "./getData";
-import { setForecastData, getForecastData } from "./memoryHandler";
+import { setForecastData } from "./memoryHandler";
 import { displayDataToDOM, hideElements } from "./displayDataToDom";
 import { getUserPref, setUserPref } from "./userSettings";
 import { loadSpinner } from "./addLoadingScreen";
@@ -10,10 +10,9 @@ const searchBtn = document.querySelector('button#city-search-button');
 
 // Get location from input field, then display to DOM
 const getLocationWeather = async function (location) {
-    
     // Check weather getLocationWeather was triggered by click or function call
     let locationVal;
-    if (location.type === 'click') {
+    if (location.type === 'click' || location === 'Enter') {
         locationVal = locationBar.value;
     } else {
         locationVal = location;
@@ -61,9 +60,12 @@ const onLoadLocationWeather = async function () {
 
     // hides element on load if no data yet, then revert visibility after api call
     hideElements(true); // hide
-
+    
+    // Fetch and display data to DOM
+    // Note: getLocationWeather executes displayDataToDOM
     await getLocationWeather(defaultLocation); // async/ fetch
 
+    // Unhide elements previously hidden
     // if initial data fetch fails and no previous data is saved, continue hiding blank elements
     if (getUserPref('lastDataReceived')) {
         hideElements(false); // unhide
@@ -71,13 +73,35 @@ const onLoadLocationWeather = async function () {
         const lastDataReceived = getUserPref('lastDataReceived');
         displayDataToDOM(lastDataReceived);
     }
+}
 
+const addEnterKeyPress = function (event) {
+    const isFocus = event.type === 'focus';
+    const isBlur = event.type === 'blur';
+
+    const enterPressSearch = async function (event) {
+        if (event.code === 'Enter' || event.keyCode === '13') {
+            await getLocationWeather(event.code);
+
+            // Focus out of search bar then remove eventListener
+            locationBar.blur();
+            document.removeEventListener('keydown', enterPressSearch);
+        }
+    }
+
+    if (isFocus) {
+        document.addEventListener('keydown', enterPressSearch);
+    } else if (isBlur) {
+        document.removeEventListener('keydown', enterPressSearch);
+    }
 }
 
 
 // Add event listener to search button on page load
 const assignSearchBtnEvent = function () {
-    searchBtn.addEventListener('click', getLocationWeather)
+    searchBtn.addEventListener('click', getLocationWeather);
+    locationBar.addEventListener('focus', addEnterKeyPress);
+    locationBar.addEventListener('blur', addEnterKeyPress);
 }
 
 export {assignSearchBtnEvent, onLoadLocationWeather}
