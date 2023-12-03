@@ -13,7 +13,7 @@ const changePageHourlyForecast = function () {
 
     let pageFlag = currentPage;
     if (buttonClicked === 'right') {
-        const newPage = `${currentPage + 1}`;
+        const newPage = `${currentPage + 1}`; 
 
         // Translate to new page
         leftBtn.dataset.page = newPage;
@@ -21,7 +21,7 @@ const changePageHourlyForecast = function () {
         hourlyDisplay.dataset.page = newPage;
 
         // Update current page using page flag variable
-        pageFlag = newPage;
+        pageFlag = Number(newPage);
 
     } else {
         const newPage = `${currentPage - 1}`;
@@ -32,7 +32,7 @@ const changePageHourlyForecast = function () {
         hourlyDisplay.dataset.page = newPage;
 
         // Update current page using page flag variable
-        pageFlag = newPage;
+        pageFlag = Number(newPage);
     }
 
     // Disable left button if current page is first page
