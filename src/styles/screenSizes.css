@@ -215,9 +215,9 @@ div#more-stats {
 
     div#hourly-display {
         width: 490px;
-        grid-template-columns: repeat(3, 100%);
+        grid-template-columns: repeat(3, 490px);
         overflow: hidden;
-        gap: 10px;
+        gap: 0;
         padding-left:0;
         padding-right: 0;
     }
@@ -227,10 +227,11 @@ div#more-stats {
     }
 
     div#hourly-carousel {
-        display: flex;
+        display: grid;
+        grid-template-columns: repeat(5, 30px);
         width: max-content;
         gap: var(--common-margin);
-        justify-content: center;
+        justify-items: center;
         align-items: center;
     }
 
@@ -246,13 +247,27 @@ div#more-stats {
         align-items: center;
     }
 
+    div#hourly-carousel button:disabled {
+        filter: brightness(0.8);
+        cursor: default;
+    }
+
+    div#hourly-carousel button:disabled:hover{
+        filter: brightness(0.8);
+        transform: scale(1);
+    }
+
     div#hourly-carousel button:hover {
         filter: brightness(1.3);
-        transform: scale(1.1);
+    }
+
+    div#hourly-carousel button:active {
+        filter: brightness(1.3);
+        transform: scale(0.9);
     }
 
     div#hourly-carousel button svg {
-        fill: var(--base-color);
+        fill: var(--light-color);
         width: 100%;
         height: 100%;
     } 
@@ -271,33 +286,9 @@ div#more-stats {
         transform: translateY(-3px);
     }
 
-    /* Hourly forecast carousel swipe (start) */
-
     div.hourly-page {
         transition: transform 0.3s ease-in-out;
     }
-
-    div#hourly-display[data-page="1"] div#hourly-page-1,
-    div#hourly-display[data-page="1"] div#hourly-page-2,
-    div#hourly-display[data-page="1"] div#hourly-page-3   {
-        transform: translateX(0);
-    }
-
-    div#hourly-display[data-page="2"] div#hourly-page-1,
-    div#hourly-display[data-page="2"] div#hourly-page-2,
-    div#hourly-display[data-page="2"] div#hourly-page-3   {
-        transform: translateX(-490px);
-    }
-
-    div#hourly-display[data-page="3"] div#hourly-page-1,
-    div#hourly-display[data-page="3"] div#hourly-page-2,
-    div#hourly-display[data-page="3"] div#hourly-page-3   {
-        transform: translateX(-980px);
-    }
-    /* Hourly forecast carousel swipe (end) */
-
-
-
 
     div#daily-forecast-cont {
         width: 500px;

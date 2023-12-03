@@ -3,6 +3,7 @@ import { getDayForecast } from "./forecastScripts";
 import { getUserSettings, getUserPref} from "./userSettings";
 import { getLocalTimeOfSearched } from "./timeScript";
 import { changeBackground } from "./changeConditionDisplay";
+import { refreshHourlyPage } from "./changePageDisplay";
 
 // Reusable Shorter DOM selector
 const domElem  = function (selector) {
@@ -247,6 +248,8 @@ const refreshDisplay = function () {
     const hourlyDisplay = domElem('div#hourly-display');
     const hourlyPageNodeList = document.querySelectorAll('div.hourly-page');
     hourlyPageNodeList.forEach(node => hourlyDisplay.removeChild(node));
+    refreshHourlyPage();
+
 
     // Daily Forecast
     const dailyCont = domElem('div#daily-forecast-cont');
