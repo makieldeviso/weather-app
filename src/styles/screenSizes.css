@@ -1,4 +1,12 @@
 /* Display layout */
+body {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: var(--header-height) var(--main-height) var(--footer-height);
+    grid-template-rows: max-content 1fr max-content;
+    height: 100vh;
+}
+
 main {
     position: relative;
     z-index: 1;
@@ -31,6 +39,7 @@ div#current-display {
         "high-low-temp"
         "more-stats";
     grid-template-rows: repeat(2, max-content) 1fr repeat(2, max-content);
+    grid-template-columns: 100%;
     row-gap: var(--common-margin);
 }
 
@@ -133,23 +142,85 @@ div#more-stats {
     }
 }
 
-@media only screen and (min-width: 768px) and (min-height: 1024px) {
+/* @media only screen and (min-width: 768px) and (min-height: 1024px) {
     :root {
         --header-font-size: 1.5rem;
         --common-font-size: 1.3rem;
         --title-font-size: 1.5rem;
     }
-}
+} */
 
-@media only screen and (min-width: 1024px) and (min-height: 1366px) {
+/* Desktop */
+@media only screen and (min-width: 1024px) {
     :root {
-        --header-font-size: 1.8rem;
-        --common-font-size: 1.5rem;
-        --title-font-size: 1.8rem;
+        --header-font-size: 1.2rem;
+        --common-font-size: 1rem;
+        --title-font-size: 1.2rem;
+
+        --icon-size: 40px;
+        --small-icon-size: 30px;
+        --settings-btn-size: 30px;
+
+        --common-padding: 10px;
+        --common-margin: 15px;
+    }
+
+    main {
+        grid-template-areas:
+            "current-display search-bar"
+            "current-display forecast-display" ;
+        grid-template-columns: 40% 1fr;
+    }
+
+    div#condition-bg {
+        width: 60%;
+    }
+
+    div#city-search {
+        /* margin-top: calc(var(--common-margin) * 2); */
+        width: 80%;
+    }
+
+    div#current-display {
+        margin-top: var(--common-margin);
+        width: 100%;
+        height: 90%;
+    }
+
+    p#main-condition {
+        max-width: 150px;
     }
 
     div#more-stats {
-        width: 70%;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        gap: var(--common-margin);
+    }
+
+    div.stat {
+        width: 150px;
+    }
+
+    div#forecast-display {
+        width: 100%;
+    }
+
+    div#hourly-forecast-cont,
+    div#daily-forecast-cont {
+        max-width: 95%;
+        width: 600px;
+        /* padding: 0; */
+    }
+
+    div#hourly-forecast-cont {
+        /* display: grid; */
+        grid-template-columns: repeat(25, 60px);
+        /* overflow: hidden; */
+    }
+
+    div#daily-forecast-cont {
+        /* width: 75%; */
     }
 
 }

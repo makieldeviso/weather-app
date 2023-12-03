@@ -151,11 +151,21 @@ const displayHourlyForecast = function (data) {
 
     // Executes createHourlyDisplay using object form array hourlyObjArr
     // then append to existing forecast container in DOM
+    // Note: allForecastCont is divided into 4 pages with 6 forecasts each
     const allForecastCont = domElem('div#hourly-forecast-cont');
-    hourlyObjArr.forEach(obj => {
-        const hourlyForecast = createHourlyDisplay(obj);
-        allForecastCont.appendChild(hourlyForecast);
-    });
+    
+    for (let i = 0; i <= 3; i++) {
+        const hourlyPage = document.createElement('div');
+        hourlyPage.setAttribute('class', 'hourly-page');
+        hourlyPage.setAttribute('id', `hourly-page-${i + 1}`);
+
+            for (let j = (i * 6); j <= (i + ((i + 1) * 5)); j++) {
+                const hourlyDisplay = createHourlyDisplay(hourlyObjArr[j]);
+                hourlyPage.appendChild(hourlyDisplay);
+            }
+
+        allForecastCont.appendChild(hourlyPage);
+    }
 }
 
 const displayDailyForecast = function (data) {
@@ -235,8 +245,8 @@ const refreshDisplay = function () {
 
     // Hourly forecast
     const hourlyCont = domElem('div#hourly-forecast-cont');
-    const hourlyNodeList = document.querySelectorAll('div.hourly-forecast');
-    hourlyNodeList.forEach(node => hourlyCont.removeChild(node));
+    const hourlyPageNodeList = document.querySelectorAll('div.hourly-page');
+    hourlyPageNodeList.forEach(node => hourlyCont.removeChild(node));
 
     // Daily Forecast
     const dailyCont = domElem('div#daily-forecast-cont');

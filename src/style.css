@@ -37,12 +37,6 @@
     --blue-color: #55A3DB;
 }
 
-body {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: var(--header-height) var(--main-height) var(--footer-height);
-}
-
 main {
     position: relative;
     z-index: 1;
@@ -70,11 +64,10 @@ img#location-icon {
 
 /* Header (start) */
 header {
-    /* height: var(--header-height); */
     display: grid;
     grid-template-columns: 1fr max-content;
     background-color: var(--light-color);
-    padding: 0 var(--common-padding);
+    padding: var(--common-padding);
 }
 
 div#title-banner {
@@ -286,9 +279,8 @@ div#city-search {
 
 input#city-search-field {
     width: 100%;
-    /* height: 30px; */
-    border: 2px solid var(--darker-color);
-    border-radius: 10px;
+    border: 1px solid var(--darker-color);
+    border-radius: 20px;
     padding: var(--common-padding) 10px;
     font-size: var(--common-font-size);
 }
@@ -457,6 +449,8 @@ p#main-condition {
     grid-area: main-condition;
     text-align: center;
     font-size: calc(var(--common-font-size) * 1.1);
+    max-width: 130px;
+    text-wrap: wrap;
 }
 
 div#high-low-temp {
@@ -541,11 +535,18 @@ div#forecast-display {
 
 div#hourly-forecast-cont {
     display: grid;
-    grid-template-columns: repeat(25, max-content);
+    grid-template-columns: repeat(4, max-content);
     gap: 10px;
     padding: calc(var(--common-padding) * 2) var(--common-padding);
     width: 90vw;
     overflow-x: scroll;
+}
+
+div.hourly-page {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
 }
 
 div.hourly-forecast {
