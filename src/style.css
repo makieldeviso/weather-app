@@ -281,7 +281,7 @@ input#city-search-field {
     width: 100%;
     border: 1px solid var(--darker-color);
     border-radius: 20px;
-    padding: var(--common-padding) 10px;
+    padding: var(--common-padding) calc(var(--common-padding) * 2);
     font-size: var(--common-font-size);
 }
 
@@ -535,11 +535,20 @@ div#forecast-display {
 
 div#hourly-forecast-cont {
     display: grid;
-    grid-template-columns: repeat(4, max-content);
-    gap: 10px;
-    padding: calc(var(--common-padding) * 2) var(--common-padding);
     width: 90vw;
+}
+
+div#hourly-display {
+    display: grid;
+    grid-template-columns: repeat(4, max-content);
+    padding: calc(var(--common-padding) * 2) var(--common-padding);
+    gap: 10px;
     overflow-x: scroll;
+    width: 100%;
+}
+
+div#hourly-carousel {
+    display: none;
 }
 
 div.hourly-page {
