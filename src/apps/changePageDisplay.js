@@ -1,4 +1,4 @@
-import createSvg from "./createSvg";
+import { createSvg } from "./elementCreatorScripts";
 
 const createPageChanger = function (assignName, pageLength) {
     const pageChangerCont = document.createElement('div');

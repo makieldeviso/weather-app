@@ -1,4 +1,4 @@
-import createSvg from "./createSvg";
+import { createSvg } from "./elementCreatorScripts";
 
 const createAlertMessage = function (errorText, errorDetail ) {
     const errorMsgCont = document.createElement('div');
