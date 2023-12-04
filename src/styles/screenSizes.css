@@ -171,7 +171,7 @@ div#more-stats {
     }
 
     div#condition-bg {
-        width: 60%;
+        width: 40%;
     }
 
     div#city-search {
@@ -226,16 +226,21 @@ div#more-stats {
         width: 50px;
     }
 
-    div#hourly-carousel {
+    div.page-changer {
         display: grid;
-        grid-template-columns: repeat(5, 30px);
+        grid-template-columns: repeat(3, max-content);
         width: max-content;
         gap: var(--common-margin);
         justify-items: center;
         align-items: center;
     }
 
-    div#hourly-carousel button {
+    div.page-markers-cont {
+        display: flex;
+        gap: var(--common-margin);
+    }
+
+    div.page-changer button {
         width: 30px;
         height: 30px;
         background-color: var(--darker-color);
@@ -247,32 +252,32 @@ div#more-stats {
         align-items: center;
     }
 
-    div#hourly-carousel button:disabled {
+    div.page-changer button:disabled {
         filter: brightness(0.8);
         cursor: default;
     }
 
-    div#hourly-carousel button:disabled:hover{
+    div.page-changer button:disabled:hover{
         filter: brightness(0.8);
         transform: scale(1);
     }
 
-    div#hourly-carousel button:hover {
+    div.page-changer button:hover {
         filter: brightness(1.3);
     }
 
-    div#hourly-carousel button:active {
+    div.page-changer button:active {
         filter: brightness(1.3);
         transform: scale(0.9);
     }
 
-    div#hourly-carousel button svg {
+    div.page-changer button svg {
         fill: var(--light-color);
         width: 100%;
         height: 100%;
     } 
 
-    div.hourly-page-mark {
+    div.page-mark {
         width: 20px;
         height: 5px;
         border-radius: 5px;
@@ -280,7 +285,7 @@ div#more-stats {
         transition: transform 0.2s ease-in-out;
     }
 
-    div.hourly-page-mark.current {
+    div.page-mark.current {
         border: 1px solid var(--yellow-color);
         background-color: var(--yellow-color);
         transform: translateY(-3px);

@@ -3,7 +3,7 @@ import { getDayForecast } from "./forecastScripts";
 import { getUserSettings, getUserPref} from "./userSettings";
 import { getLocalTimeOfSearched } from "./timeScript";
 import { changeBackground } from "./changeConditionDisplay";
-import { refreshHourlyPage } from "./changePageDisplay";
+import { createPageChanger, assignHourlyPageBtnEvent } from "./changePageDisplay";
 
 // Reusable Shorter DOM selector
 const domElem  = function (selector) {
@@ -150,23 +150,33 @@ const displayHourlyForecast = function (data) {
         return hourlyCont;
     }
 
-    // Executes createHourlyDisplay using object form array hourlyObjArr
+    // Executes createHourlyDisplay using objects from array hourlyObjArr
     // then append to existing forecast container in DOM
-    // Note: allForecastCont is divided into 4 pages with 6 forecasts each
+    // Note: allForecastCont is divided into 3 pages with 8 forecasts each
     const allForecastCont = domElem('div#hourly-display');
-    
-    for (let i = 0; i <= 2; i++) {
+    const hourlyPages = 3;
+    const forecastPerPage = 8;
+    allForecastCont.dataset.page = 1;
+
+    for (let i = 0; i < hourlyPages; i++) {
         const hourlyPage = document.createElement('div');
         hourlyPage.setAttribute('class', 'hourly-page');
         hourlyPage.setAttribute('id', `hourly-page-${i + 1}`);
 
-            for (let j = (i * 8); j <= (i + ((i + 1) * 7)); j++) {
+            for (let j = (i * forecastPerPage); j <= (i + ((i + 1) * (forecastPerPage - 1))); j++) {
                 const hourlyDisplay = createHourlyDisplay(hourlyObjArr[j]);
                 hourlyPage.appendChild(hourlyDisplay);
             }
 
         allForecastCont.appendChild(hourlyPage);
     }
+
+    // Create page changer 
+    const hourlyForecastCont = domElem('div#hourly-forecast-cont');
+    const pageChanger = createPageChanger('hourly', hourlyPages,);
+    hourlyForecastCont.appendChild(pageChanger);
+    assignHourlyPageBtnEvent();
+
 }
 
 const displayDailyForecast = function (data) {
@@ -245,10 +255,14 @@ const displayDailyForecast = function (data) {
 const refreshDisplay = function () {
 
     // Hourly forecast
+    const hourlyForecastCont = domElem('div#hourly-forecast-cont');
     const hourlyDisplay = domElem('div#hourly-display');
     const hourlyPageNodeList = document.querySelectorAll('div.hourly-page');
+    const pageChanger = document.querySelector('div#hourly-page-changer');
     hourlyPageNodeList.forEach(node => hourlyDisplay.removeChild(node));
-    refreshHourlyPage();
+    if (pageChanger) {
+        hourlyForecastCont.removeChild(pageChanger);
+    }
 
 
     // Daily Forecast

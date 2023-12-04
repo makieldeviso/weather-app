@@ -1,12 +1,63 @@
-const hourlyDisplay = document.querySelector('div#hourly-display');
-const leftBtn = document.querySelector('button#hourly-turn-left');
-const rightBtn = document.querySelector('button#hourly-turn-right');
+import createSvg from "./createSvg";
+
+const createPageChanger = function (assignName, pageLength) {
+    const pageChangerCont = document.createElement('div');
+    pageChangerCont.setAttribute('id', `${assignName}-page-changer`);
+    pageChangerCont.setAttribute('class', 'page-changer');
+
+    const defaultPage = 1;
+
+    const createBtn = function (assignId, dataPage, assignValue) {
+        const newBtn = document.createElement('button');
+        newBtn.setAttribute('id', assignId);
+        newBtn.dataset.page = dataPage;
+        newBtn.setAttribute('value', assignValue);
+
+        let btnIcon;
+        if (assignValue === 'left') {
+            btnIcon = createSvg(`${assignId}-icon`, 'M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z' );
+        } else {
+            btnIcon = createSvg(`${assignId}-icon`, 'M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z');
+        }
+
+        newBtn.appendChild(btnIcon);
+        
+        return newBtn;
+    }
+
+    const leftBtn = createBtn(`${assignName}-turn-left`, defaultPage, 'left');
+    const rightBtn = createBtn(`${assignName}-turn-right`, defaultPage, 'right');
+    const pageMarkerCont = document.createElement('div');
+    pageMarkerCont.setAttribute('class', 'page-markers-cont');
+
+    for (let i = 0; i < pageLength; i++) {
+        const newPageMarker = document.createElement('div');
+        newPageMarker.setAttribute('class', `${assignName} page-mark`);
+        newPageMarker.setAttribute('id', `${assignName}-page-mark-${i + 1}`);
+        pageMarkerCont.appendChild(newPageMarker);
+
+        // Set first marker as default current
+        if ((i + 1) === 1) {
+            newPageMarker.classList.add('current');
+        }
+    }
+
+    const components = [leftBtn, pageMarkerCont, rightBtn];
+    components.forEach(comp => pageChangerCont.appendChild(comp));
+
+    return pageChangerCont;
+}
+
 
 const changePageHourlyForecast = function () {
+    const hourlyDisplay = document.querySelector('div#hourly-display');
+    const leftBtn = document.querySelector('button#hourly-turn-left');
+    const rightBtn = document.querySelector('button#hourly-turn-right');
+
     const hourlyPages = document.querySelectorAll('div.hourly-page');
     const pageLength = hourlyPages.length;
 
-    const carouselMarkers = document.querySelectorAll('div.hourly-page-mark');
+    const pageMarkers = document.querySelectorAll('div.hourly.page-mark');
 
     const currentPage = Number(this.dataset.page);
     const buttonClicked = this.value;
@@ -49,9 +100,9 @@ const changePageHourlyForecast = function () {
         rightBtn.disabled = false;
     }
 
-    // Indicate change to carousel marker
-    carouselMarkers[`${currentPage - 1}`].classList.remove('current');
-    carouselMarkers[`${pageFlag - 1}`].classList.add('current');
+    // Indicate change to page marker
+    pageMarkers[`${currentPage - 1}`].classList.remove('current');
+    pageMarkers[`${pageFlag - 1}`].classList.add('current');
 
     // Direct/ dynamic styling 
     // Note: styling is added here to avoid hard coding number of pages in css
@@ -61,34 +112,12 @@ const changePageHourlyForecast = function () {
 
 }
 
-const refreshHourlyPage = function () {
-    hourlyDisplay.dataset.page = 1;
-    leftBtn.dataset.page = 1;
-    rightBtn.dataset.page = 1;
-    leftBtn.disabled = true;
-    rightBtn.disabled = false;
+const assignHourlyPageBtnEvent = function () {
+    const leftBtn = document.querySelector('button#hourly-turn-left');
+    const rightBtn = document.querySelector('button#hourly-turn-right');
 
-    // translate pages to 0%/ first page
-    const hourlyPages = document.querySelectorAll('div.hourly-page');
-    hourlyPages.forEach(page => {
-        page.setAttribute('style', 'transform: translateX(0%)');
-    });
-
-    // change marker to first page
-    const carouselMarkers = document.querySelectorAll('div.hourly-page-mark');
-    carouselMarkers.forEach(marker => {
-        if (marker.getAttribute('id') === 'hourly-page-mark-1'){
-            marker.classList.add('current');
-        } else {
-            marker.classList.remove('current');
-        }
-    });
-}
-
-
-const assignHourlyCarouselBtnEvent = function () {
     leftBtn.addEventListener('click', changePageHourlyForecast);
     rightBtn.addEventListener('click', changePageHourlyForecast);
 }
 
-export {assignHourlyCarouselBtnEvent, refreshHourlyPage}
+export {createPageChanger, assignHourlyPageBtnEvent}

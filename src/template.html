@@ -188,24 +188,39 @@
 
         <!-- forecast display (start) -->
         <div id="forecast-display">
-            <div id="hourly-forecast-cont">
-                <div id="hourly-display" data-page="1"></div>
-
-                <div id="hourly-carousel">
-                    <button id="hourly-turn-left" data-page="1" value="left" disabled>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z" />
-                        </svg>
-                    </button>
-                    <div  class ="hourly-page-mark current" id="hourly-page-mark-1"></div>
-                    <div  class ="hourly-page-mark" id="hourly-page-mark-2"></div>
-                    <div  class ="hourly-page-mark" id="hourly-page-mark-3"></div>
-                    <button id="hourly-turn-right" data-page="1" value="right">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
-                        </svg>
-                    </button>
+            <!-- Astro display (start) -->
+            <div id="astro-display">
+                <div class="astro-detail" id="today-astro">
+                    <div class="astro-specs">
+                        <p class="day-indicator">Today</p>
+                        <p>Sunrise: 
+                            <span class="astro-value" id="sunrise-val">"05:45 AM"</span>
+                        </p>
+                        <p>Sunset: 
+                            <span class="astro-value" id="sunset-val">"05:15 PM"</span>
+                        </p>
+                        <p>Moonrise: 
+                            <span class="astro-value" id="moonrise-val">"11:13 PM"</span>
+                        </p>
+                        <p>Moonset: 
+                            <span class="astro-value" id="moonset-val">"11:15 AM"</span>
+                        </p>
+                    </div>
+                    
+                    <div class="moonphase-cont">
+                        <p class="moonphase-icon">Moon icon here</p>
+                        <p class="moonphase-name">Waning Gibbous</p>
+                    </div>
                 </div>
+
+                
+            </div>
+            <!-- Astro display (end) -->
+
+
+
+            <div id="hourly-forecast-cont">
+                <div id="hourly-display"></div>
             </div>
     
     

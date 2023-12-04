@@ -4,13 +4,12 @@ import screenSizesStyle from "./styles/screenSizes.css";
 import { assignSearchBtnEvent, onLoadLocationWeather } from "./apps/getLocation";
 import { setInitial } from "./apps/userSettings";
 import { assignSettingsBtnEvent } from "./apps/settings";
-import { assignHourlyCarouselBtnEvent } from "./apps/changePageDisplay";
+import { assignHourlyPageBtnEvent } from "./apps/changePageDisplay";
 
 
 // Add initial on load event listeners
 assignSearchBtnEvent(); // adds event listener to search button
 assignSettingsBtnEvent(); // adds event listener to settings button
-assignHourlyCarouselBtnEvent(); // adds event listener to hourly display left and rightBtn
 
 // Sets initial user settings
 // Note: this function has a conditional. If user preference already exists in the local storage,
