@@ -4,8 +4,6 @@ import screenSizesStyle from "./styles/screenSizes.css";
 import { assignSearchBtnEvent, onLoadLocationWeather } from "./apps/getLocation";
 import { setInitial } from "./apps/userSettings";
 import { assignSettingsBtnEvent } from "./apps/settings";
-import { assignHourlyPageBtnEvent } from "./apps/changePageDisplay";
-
 
 // Add initial on load event listeners
 assignSearchBtnEvent(); // adds event listener to search button
@@ -18,5 +16,4 @@ setInitial();
 
 // Loads initial data on DOM using preferences saved on the local storage
 onLoadLocationWeather();
-
 

@@ -2,9 +2,14 @@ import { domElem } from "./elementCreatorScripts";
 import displayMainData from "./displayMainData";
 import displayHourlyForecast from "./displayHourlyForecast";
 import displayDailyForecast from "./displayDailyForecast";
+import { displayAstro } from "./displayAstro";
 
 // Refreshes DOM before appending new Forecast
 const refreshDisplay = () => {
+    // Astro
+    const astroDisplayCont = domElem('div#astro-display');
+    const astroDetails = document.querySelectorAll('div.astro-detail');
+    astroDetails.forEach(node => astroDisplayCont.removeChild(node));
 
     // Hourly forecast
     const hourlyForecastCont = domElem('div#hourly-forecast-cont');
@@ -29,6 +34,7 @@ const displayDataToDOM = (data) => {
     refreshDisplay();
 
     displayMainData(data);
+    displayAstro(data);
     displayHourlyForecast(data);
     displayDailyForecast(data);
 }

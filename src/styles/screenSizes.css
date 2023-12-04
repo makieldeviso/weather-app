@@ -298,6 +298,67 @@ div#more-stats {
     div#daily-forecast-cont {
         width: 500px;
     }
+
+    /* !!!!!!!!!!!!!!!!!!!!! astro */
+
+    div#astro-cont {
+        width: 500px;
+        border: 1px dotted white;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(2, max-content);
+        justify-items: center;
+        align-items: center;
+    }
+
+    div#astro-display {
+        width: 490px;
+        display: grid;
+        grid-template-columns: repeat(3, 490px);
+        overflow: hidden;
+        gap: 0;
+        background-color: var(--darker-color);
+        border: 1px solid white;
+    }
+    
+    div.astro-detail {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        padding: var(--common-padding);
+        position: relative;
+    }
+
+    p.day-indicator {
+        grid-column: 1 / 3;
+        grid-row: 1 / 2;
+        text-align: center;
+    }
+
+    div.moonphase-cont {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(2, max-content);
+        justify-items: center;
+        align-items: center;
+    }
+
+    svg.moon-icon {
+        width: 100px;
+        height: 100px;
+    }
+
+
+
+
+
+
+
+
+
+
+
 }
 
 

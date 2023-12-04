@@ -27,7 +27,9 @@ const createSvg = function (assignId, pathD) {
 
     const newSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     newSvg.setAttribute('viewBox', '0 0 24 24');
-    newSvg.setAttribute('id', assignId);
+    if (assignId) {
+        newSvg.setAttribute('id', assignId);
+    }
 
     const svgPath = document.createElementNS('http://www.w3.org/2000/svg','path');
     svgPath.setAttributeNS(null, 'd', pathD);
@@ -37,4 +39,12 @@ const createSvg = function (assignId, pathD) {
     return newSvg
 }
 
-export { domElem, createSpan, createCdnIcon, createSvg };
+const toFormal = function (text) {
+    const string = text;
+    const firstLetter = text.slice(0, 1).toUpperCase();
+    const rest = text.slice(1);
+
+    return `${firstLetter}${rest}`;
+}
+
+export { domElem, createSpan, createCdnIcon, createSvg, toFormal };
