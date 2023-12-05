@@ -134,10 +134,10 @@ const convertTimeFormat = function (time, format) {
 
     let timeRequired = time;
     // Note: if current time format is already the required format, conditionals will not run
-    if (is12hr && format === '24hr') {
+    if (is12hr && format === 'hr-24') {
         timeRequired = convertTo24(time);
     
-    } else if (is24hr && format === '12hr') {
+    } else if (is24hr && format === 'hr-12') {
         timeRequired = convertTo12(time);
     }
 

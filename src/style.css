@@ -161,6 +161,7 @@ div#settings-tab.open {
     display: flex;
     flex-direction: column;
     gap: var(--common-margin);
+    z-index: 2;
 }
 
 div#settings-tab p, 

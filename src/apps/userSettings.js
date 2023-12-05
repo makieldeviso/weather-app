@@ -6,8 +6,9 @@ const userDefault = function () {
     const precipUnit = 'mm';
     const windUnit = 'kph';
     const otherUnits = 'metric';
+    const timeFormat = 'hr-12'
 
-    return {city, country, tempUnit, precipUnit, windUnit, otherUnits};
+    return {city, country, tempUnit, precipUnit, windUnit, otherUnits, timeFormat};
 }
 
 const setInitial = function () {
