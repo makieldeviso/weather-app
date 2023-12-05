@@ -62,4 +62,87 @@ const getLocalTimeOfSearched = function (data, timeZoneId, timeOptions) {
     return requiredTime;
 }
 
-export { getLocalTimeOfSearched }
+const convertTimeFormat = function (time, format) {
+
+    const format12hour = /^(0[1-9]|1[0-2]):[0-5][0-9] (AM|PM)$/i;
+    const format24hour =  /^(?:[01]\d|2[0-3]):[0-5]\d$/;
+
+    const is12hr = format12hour.test(time);
+    const is24hr = format24hour.test(time);
+    
+    const convertTo24 = function (time12) {
+        const indicator = time12.slice(-2);
+        const hour = Number(time12.slice(0, 2));
+        const minutes = time12.slice(3, 5);
+        
+        let hourVal;
+        if (hour === 12 && indicator === 'AM') {
+            hourVal = '00';
+
+        } else if (hour !== 12 && indicator === 'AM') {
+            hourVal = hour;
+
+        } else if (hour === 12 && indicator === 'PM') {
+            hourVal = hour;
+
+        } else if (hour !== 12 && indicator === 'PM') {
+            hourVal = hour + 12;
+        }
+
+        // Ensure hour format HH
+        let newHour = `${hourVal}`
+        if ( newHour.length === 1) {
+            newHour = `0${newHour}`;
+        }
+
+        const formattedTime = `${newHour}:${minutes}`;
+        return formattedTime;
+    }
+    
+    const convertTo12 = function (time24) {
+        const hour = Number(time24.slice(0, 2));
+        const minutes = time24.slice(3, 5);
+        let indicator;
+        let hourVal;
+        if (hour >= 12) {
+            indicator = 'PM';
+            if (hour === 12) {
+                hourVal = hour;
+            } else {
+                hourVal = hour - 12;
+            }
+            
+        } else {
+            indicator = 'AM';
+            if (hour === 0) {
+                hourVal = 12;
+            } else {
+                hourVal = hour;
+            }
+            
+        }
+
+        // Ensure hour format hh
+        let newHour = `${hourVal}`
+        if ( newHour.length === 1) {
+            newHour = `0${newHour}`;
+        }
+
+        const formattedTime = `${newHour}:${minutes} ${indicator}`;
+        return formattedTime;
+    }
+
+    let timeRequired = time;
+    // Note: if current time format is already the required format, conditionals will not run
+    if (is12hr && format === '24hr') {
+        timeRequired = convertTo24(time);
+    
+    } else if (is24hr && format === '12hr') {
+        timeRequired = convertTo12(time);
+    }
+
+    return timeRequired;
+}
+
+
+export { getLocalTimeOfSearched, convertTimeFormat }
