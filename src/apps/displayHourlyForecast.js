@@ -1,7 +1,7 @@
 import { getLocalTimeOfSearched } from "./timeScript";
 import { getUserPref } from "./userSettings";
 import { createCdnIcon, createSpan, domElem } from "./elementCreatorScripts";
-import { createPageChanger, assignHourlyPageBtnEvent } from "./changePageDisplay";
+import { createPageChanger, assignPageBtnEvent } from "./changePageDisplay";
 
 const displayHourlyForecast = (data) => {
     // data argument should receive the whole response,
@@ -81,7 +81,7 @@ const displayHourlyForecast = (data) => {
     const hourlyForecastCont = domElem('div#hourly-forecast-cont');
     const pageChanger = createPageChanger('hourly', hourlyPages,);
     hourlyForecastCont.appendChild(pageChanger);
-    assignHourlyPageBtnEvent();
+    assignPageBtnEvent('hourly');
 
 }
 

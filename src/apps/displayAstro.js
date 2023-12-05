@@ -1,3 +1,4 @@
+import { createPageChanger, assignPageBtnEvent } from "./changePageDisplay";
 import { createSpan, createSvg, domElem, toFormal } from "./elementCreatorScripts"
 
 const convertNameToId = function (name) {
@@ -7,7 +8,14 @@ const convertNameToId = function (name) {
     return id;
 }
 
-const moonPhaseObj = {};
+const moonPhaseObj = {
+    getMoonSvg: (id) => {
+        const moonSvg = moonPhaseObj[id];
+        const svgCopy = moonSvg.cloneNode(true);
+        return svgCopy;
+    }
+};
+
 const assignPropToMoonPhase = function (name, path) {
     const moonId = convertNameToId(name);
     const moonIcon = createSvg('', path);
@@ -25,14 +33,15 @@ const lastQuarter = assignPropToMoonPhase('Last Quarter', 'M12 2A10 10 0 0 0 12 
 const waningCrescent = assignPropToMoonPhase('Waning Crescent', 'M2 12A10 10 0 0 0 15 21.54A10 10 0 0 1 15 2.46A10 10 0 0 0 2 12Z');
 
 const displayAstro = (data) => {
+    const astroCont = domElem('div#astro-cont');
     const astroDisplayCont = domElem('div#astro-display');
 
     const forecastDayData = data.forecast.forecastday;
 
     for (let i = 0; i < forecastDayData.length; i++) {
-        const astroDetailCont = document.createElement('div');
-        astroDetailCont.setAttribute('class', 'astro-detail');
-        astroDetailCont.setAttribute('id', `astro-page${i + 1}`);
+        const astroPageCont = document.createElement('div');
+        astroPageCont.setAttribute('class', 'astro-page');
+        astroPageCont.setAttribute('id', `astro-page-${i + 1}`);
 
         const specsCont = document.createElement('div');
         specsCont.setAttribute('class', 'astro-specs');
@@ -70,11 +79,13 @@ const displayAstro = (data) => {
 
         const moonPhaseCont = document.createElement('div')
         moonPhaseCont.setAttribute('class', 'moonphase-cont');
+        moonPhaseCont.setAttribute('id', `moonphase-cont-${i + 1}`);
 
         const moonPhase = forecastDayData[i].astro.moon_phase;
 
-        const icon = moonPhaseObj[`${convertNameToId(moonPhase)}`];
+        const icon = moonPhaseObj.getMoonSvg(`${convertNameToId(moonPhase)}`);
         icon.setAttribute('class', 'moon-icon');
+        icon.setAttribute('id', `moon-icon-${i + 1}`);
 
         const moonName = document.createElement('p');
         moonName.setAttribute('class', 'moonphase-name');
@@ -83,15 +94,19 @@ const displayAstro = (data) => {
         // Assemble moon phase details
         const moonComp = [icon, moonName];
         moonComp.forEach(comp => moonPhaseCont.appendChild(comp));
-
+        
         // Assemble All to parent container
         const astroDetailComp = [indicator, specsCont, moonPhaseCont];
-        astroDetailComp.forEach(comp => astroDetailCont.appendChild(comp));
+        astroDetailComp.forEach(comp => astroPageCont.appendChild(comp));
         
         // Append all Display to DOM
         // Note: astroDisplayCont must already exist in the DOM
-        astroDisplayCont.appendChild(astroDetailCont);
+        astroDisplayCont.appendChild(astroPageCont);
     }
+
+    const pageChanger = createPageChanger('astro', forecastDayData.length);
+    astroCont.appendChild(pageChanger);
+    assignPageBtnEvent('astro');
 }
 
-export { displayAstro }
+export { displayAstro } 

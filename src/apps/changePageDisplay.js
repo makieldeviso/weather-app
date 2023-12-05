@@ -11,10 +11,12 @@ const createPageChanger = function (assignName, pageLength) {
         const newBtn = document.createElement('button');
         newBtn.setAttribute('id', assignId);
         newBtn.dataset.page = dataPage;
+        newBtn.dataset.name = assignName; // Note: assignName in upper scope
         newBtn.setAttribute('value', assignValue);
 
         let btnIcon;
         if (assignValue === 'left') {
+            newBtn.disabled = true; // disable left button as default
             btnIcon = createSvg(`${assignId}-icon`, 'M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z' );
         } else {
             btnIcon = createSvg(`${assignId}-icon`, 'M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z');
@@ -49,15 +51,17 @@ const createPageChanger = function (assignName, pageLength) {
 }
 
 
-const changePageHourlyForecast = function () {
-    const hourlyDisplay = document.querySelector('div#hourly-display');
-    const leftBtn = document.querySelector('button#hourly-turn-left');
-    const rightBtn = document.querySelector('button#hourly-turn-right');
+const changePage= function () {
+    const btnName = this.dataset.name;
+    
+    const display = document.querySelector(`div#${btnName}-display`);
+    const leftBtn = document.querySelector(`button#${btnName}-turn-left`);
+    const rightBtn = document.querySelector(`button#${btnName}-turn-right`);
 
-    const hourlyPages = document.querySelectorAll('div.hourly-page');
-    const pageLength = hourlyPages.length;
+    const displayPages = document.querySelectorAll(`div.${btnName}-page`);
+    const pageLength = displayPages.length;
 
-    const pageMarkers = document.querySelectorAll('div.hourly.page-mark');
+    const pageMarkers = document.querySelectorAll(`div.${btnName}.page-mark`);
 
     const currentPage = Number(this.dataset.page);
     const buttonClicked = this.value;
@@ -69,7 +73,7 @@ const changePageHourlyForecast = function () {
         // Translate to new page
         leftBtn.dataset.page = newPage;
         rightBtn.dataset.page = newPage;
-        hourlyDisplay.dataset.page = newPage;
+        display.dataset.page = newPage;
 
         // Update current page using page flag variable
         pageFlag = Number(newPage);
@@ -80,7 +84,7 @@ const changePageHourlyForecast = function () {
         // Translate to new page
         leftBtn.dataset.page = newPage;
         rightBtn.dataset.page = newPage;
-        hourlyDisplay.dataset.page = newPage;
+        display.dataset.page = newPage;
 
         // Update current page using page flag variable
         pageFlag = Number(newPage);
@@ -106,18 +110,18 @@ const changePageHourlyForecast = function () {
 
     // Direct/ dynamic styling 
     // Note: styling is added here to avoid hard coding number of pages in css
-    hourlyPages.forEach(page => {
+    displayPages.forEach(page => {
         page.setAttribute('style', `transform: translateX(${(pageFlag-1) * -100}%)`);
     });
 
 }
 
-const assignHourlyPageBtnEvent = function () {
-    const leftBtn = document.querySelector('button#hourly-turn-left');
-    const rightBtn = document.querySelector('button#hourly-turn-right');
+const assignPageBtnEvent = function (name) {
+    const leftBtn = document.querySelector(`button#${name}-turn-left`);
+    const rightBtn = document.querySelector(`button#${name}-turn-right`);
 
-    leftBtn.addEventListener('click', changePageHourlyForecast);
-    rightBtn.addEventListener('click', changePageHourlyForecast);
+    leftBtn.addEventListener('click', changePage);
+    rightBtn.addEventListener('click', changePage);
 }
 
-export {createPageChanger, assignHourlyPageBtnEvent}
+export {createPageChanger, assignPageBtnEvent}

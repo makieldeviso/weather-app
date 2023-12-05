@@ -7,18 +7,24 @@ import { displayAstro } from "./displayAstro";
 // Refreshes DOM before appending new Forecast
 const refreshDisplay = () => {
     // Astro
+    const astroCont = domElem('div#astro-cont');
     const astroDisplayCont = domElem('div#astro-display');
-    const astroDetails = document.querySelectorAll('div.astro-detail');
-    astroDetails.forEach(node => astroDisplayCont.removeChild(node));
+    const astroPages = document.querySelectorAll('div.astro-page');
+    const astroPageChanger = document.querySelector('div#astro-page-changer');
+    astroPages.forEach(node => astroDisplayCont.removeChild(node));
+    if (astroPageChanger) {
+        astroCont.removeChild(astroPageChanger);
+    }
+    
 
     // Hourly forecast
     const hourlyForecastCont = domElem('div#hourly-forecast-cont');
     const hourlyDisplay = domElem('div#hourly-display');
-    const hourlyPageNodeList = document.querySelectorAll('div.hourly-page');
-    const pageChanger = domElem('div#hourly-page-changer');
-    hourlyPageNodeList.forEach(node => hourlyDisplay.removeChild(node));
-    if (pageChanger) {
-        hourlyForecastCont.removeChild(pageChanger);
+    const hourlyPages = document.querySelectorAll('div.hourly-page');
+    const hourlyPageChanger = domElem('div#hourly-page-changer');
+    hourlyPages.forEach(node => hourlyDisplay.removeChild(node));
+    if (hourlyPageChanger) {
+        hourlyForecastCont.removeChild(hourlyPageChanger);
     }
 
     // Daily Forecast
