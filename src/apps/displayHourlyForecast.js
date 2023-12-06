@@ -1,4 +1,4 @@
-import { getLocalTimeOfSearched } from "./timeScript";
+import { convertTimeFormat, getLocalTimeOfSearched } from "./timeScript";
 import { getUserPref } from "./userSettings";
 import { createCdnIcon, createSpan, domElem } from "./elementCreatorScripts";
 import { createPageChanger, assignPageBtnEvent } from "./changePageDisplay";
@@ -13,9 +13,12 @@ const displayHourlyForecast = (data) => {
     const tomHourlyData = data.forecast.forecastday[1].hour;
     const hourlyObjArr = [];
 
+    let nextDayFirstHourIndex = 0; // Plot the index where the next day starts
     // Pushes hourly forecast to hourlyObjArr from next hour of current hour until end of current day
     for (let i =( currentHour + 1 ); i < currentHourlyData.length; i++) {
         hourlyObjArr.push(currentHourlyData[i]);
+
+        nextDayFirstHourIndex += 1; // Plot the index where the next day starts
     }
 
      // Pushes hourly forecast to hourlyObjArr from start of next day until same hour of current hour
@@ -28,7 +31,15 @@ const displayHourlyForecast = (data) => {
         // hourlyObj parameter receives individual hourly forecast object 
         // Note: timeZoneId exists in upper scope
         // const dateObj = new Date(hourlyObj.time_epoch * 1000);
-        const hourString = getLocalTimeOfSearched(hourlyObj, timeZoneId, 'hour_minute'); // time in string 00:00 format
+        const userTimeFormat = getUserPref('timeFormat');
+        const newHour = getLocalTimeOfSearched(hourlyObj, timeZoneId, 'hour_minute'); // time in string 00:00 format
+        let hourString = convertTimeFormat(newHour, userTimeFormat); // Formatted according to user preference
+
+        // simplify hourString if 12hr format (e.g 3 PM, 1 AM);
+        if (userTimeFormat === 'hr-12') {
+            hourString = convertTimeFormat(hourString, 'hr-12-simplify');
+        }
+
         const condition = hourlyObj.condition.text; // condition description string
         const cdnIcon = hourlyObj.condition.icon; // src url
         const tempUnit = getUserPref('tempUnit');
@@ -58,10 +69,10 @@ const displayHourlyForecast = (data) => {
 
     // Executes createHourlyDisplay using objects from array hourlyObjArr
     // then append to existing forecast container in DOM
-    // Note: allForecastCont is divided into 3 pages with 8 forecasts each
+    // Note: allForecastCont is divided into 3 pages with equal number of forecasts each
     const allForecastCont = domElem('div#hourly-display');
     const hourlyPages = 3;
-    const forecastPerPage = 8;
+    const forecastPerPage = 24 / hourlyPages;
     allForecastCont.dataset.page = 1;
 
     for (let i = 0; i < hourlyPages; i++) {
@@ -71,6 +82,12 @@ const displayHourlyForecast = (data) => {
 
             for (let j = (i * forecastPerPage); j <= (i + ((i + 1) * (forecastPerPage - 1))); j++) {
                 const hourlyDisplay = createHourlyDisplay(hourlyObjArr[j]);
+
+                // Add additional class attribute to hourly forecast that occurs tomorrow day
+                if (j >= nextDayFirstHourIndex) {
+                    hourlyDisplay.classList.add('tomorrow');
+                }
+                
                 hourlyPage.appendChild(hourlyDisplay);
             }
 

@@ -19,8 +19,9 @@
     --common-font-family: 'Montserrat', sans-serif;
     --header-font-family: 'Maven Pro', sans-serif;
 
-    --common-padding: calc(5px + 0.5vw);
-    --common-margin: calc(10px + 0.5vw);
+    --common-padding: calc(8px + 0.5vw);
+    --common-margin: calc(16px + 0.5vw);
+    --common-border-radius: 8px;
 
     --header-height: 8vh;
     --main-height: 85vh;
@@ -280,10 +281,11 @@ div#city-search {
 
 input#city-search-field {
     width: 100%;
-    border: 1px solid var(--darker-color);
+    border: 2px solid var(--darker-color);
     border-radius: 20px;
     padding: var(--common-padding) calc(var(--common-padding) * 2);
     font-size: var(--common-font-size);
+    background-color: var(--light-color);
 }
 
 button:hover {
@@ -332,25 +334,24 @@ div#condition-bg {
 }
 
 main.day div#condition-bg.cloudy {
-    background-image: url(./assets/cloudy.png);
+    background-image: url(./assets/cloudy.jpg);
 }
 
 main.night div#condition-bg.cloudy {
-    background-image: url(./assets/dark-clouds.png);
+    background-image: url(./assets/dark-clouds-night.jpg);
 }
 
 main.day div#condition-bg.clear {
-    background-image: url(./assets/sunny.png);
+    background-image: url(./assets/sunny.jpg);
 }
 
 main.night div#condition-bg.clear {
-    background-image: url(./assets/clear-night.png);
-    filter: opacity(0.8);
+    background-image: url(./assets/clear-night.jpg);
+    filter: opacity(0.5);
 }
 
 main.day-dark div#condition-bg.rainy {
-    background-image: url(./assets/rainy.gif);
-    background-image: url(./assets/dark-clouds.png);
+    background-image: url(./assets/dark-clouds.jpg);
     filter: opacity(0.3);
 }
 
@@ -533,16 +534,24 @@ div#forecast-display {
     margin: var(--common-margin) 0;
 }
 
+div.forecast-cont {
+    background: linear-gradient(transparent 30%, rgba(23, 107, 135, 0.3));
+    border-radius: 8px;
+}
 
 div#hourly-forecast-cont {
     display: grid;
     width: 90vw;
+    padding: var(--common-padding);
+    padding-bottom: 0;
+    border-radius: 5px;
+    justify-content: center;
 }
 
 div#hourly-display {
     display: grid;
     grid-template-columns: repeat(4, max-content);
-    padding: calc(var(--common-padding) * 2) var(--common-padding);
+    padding-bottom: calc(var(--common-padding) * 2);
     gap: 10px;
     overflow-x: scroll;
     width: 100%;
@@ -557,6 +566,7 @@ div.hourly-page {
     gap: 10px;
     justify-content: center;
     align-items: center;
+    border-radius: 5px;
 }
 
 div.hourly-forecast {
@@ -568,6 +578,11 @@ div.hourly-forecast {
     padding: 5px;
     border-radius: 5px;
     background-color: rgb(219, 255, 251, 0.3);
+    width: 50px;
+}
+
+div.hourly-forecast.tomorrow {
+    background-color: rgba(23, 107, 135, 0.3);
 }
 
 div#hourly-forecast-cont p {
@@ -581,10 +596,18 @@ div#hourly-forecast-cont p {
 div#daily-forecast-cont {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     width: 90vw;
-    margin: var(--common-margin) auto;
-    border-radius: 5px;
+    border-radius: 8px;
+    padding: var(--common-padding);
+    background: linear-gradient(transparent 30%, rgba(23, 107, 135, 0.3));
+}
+
+div#daily-display {
     background-color: rgb(219, 255, 251, 0.3);
+    border-radius: 8px;
+    width: 100%;
 }
 
 div.daily-forecast {
@@ -614,6 +637,17 @@ p.daily-high, p.daily-low {
 }
 
 /* daily-forecast (end) */
+
+/* Astro forecast (start) */
+div#astro-cont {
+    display: none;
+}
+
+/* Astro forecast (end) */
+
+
+
+
 /* Main (end) */
 
 /* Footer (start) */

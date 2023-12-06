@@ -1,5 +1,8 @@
 import { createPageChanger, assignPageBtnEvent } from "./changePageDisplay";
 import { createSpan, createSvg, domElem, toFormal } from "./elementCreatorScripts"
+import { convertTimeFormat } from "./timeScript";
+import { getUserPref } from "./userSettings";
+import { format } from "date-fns";
 
 const convertNameToId = function (name) {
     const nameArr = name.split(' ');
@@ -52,7 +55,9 @@ const displayAstro = (data) => {
         } else if (i === 1) {
             indicatorText = 'Tomorrow';
         } else if (i === 2) {
-            indicatorText = 'Soon';
+            const date = new Date(forecastDayData[2].date);
+            const dateDay = format(date, 'EEEE');
+            indicatorText = dateDay;
         }
 
         const indicator = document.createElement('p');
@@ -62,8 +67,13 @@ const displayAstro = (data) => {
         const createAstroSpec = function (spec) {
             const newSpec = document.createElement('p');
             newSpec.setAttribute('class', spec);
+
+            const timeFormat = getUserPref('timeFormat');
+            const timeVal = forecastDayData[i].astro[spec];
+            const formattedTime = convertTimeFormat(timeVal, timeFormat);
+
             createSpan(newSpec, 'astro-label', `${toFormal(spec)}:`);
-            createSpan(newSpec, 'astro-value', forecastDayData[i].astro[spec]);
+            createSpan(newSpec, 'astro-value', formattedTime);
 
             return newSpec;
         }

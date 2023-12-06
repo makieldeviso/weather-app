@@ -132,6 +132,14 @@ const convertTimeFormat = function (time, format) {
         return formattedTime;
     }
 
+    const convertTo12simp = function (time12) {
+        const indicator = time12.slice(-2);
+        const hour = Number(time12.slice(0, 2));
+
+        const simplified = `${hour} ${indicator}`;
+        return simplified;
+    }
+
     let timeRequired = time;
     // Note: if current time format is already the required format, conditionals will not run
     if (is12hr && format === 'hr-24') {
@@ -139,10 +147,12 @@ const convertTimeFormat = function (time, format) {
     
     } else if (is24hr && format === 'hr-12') {
         timeRequired = convertTo12(time);
+
+    } else if (is12hr && format === 'hr-12-simplify') {
+        timeRequired = convertTo12simp(time);
     }
 
     return timeRequired;
 }
 
-
-export { getLocalTimeOfSearched, convertTimeFormat }
+export { getLocalTimeOfSearched, convertTimeFormat}

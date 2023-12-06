@@ -28,9 +28,9 @@ const refreshDisplay = () => {
     }
 
     // Daily Forecast
-    const dailyCont = domElem('div#daily-forecast-cont');
+    const dailyDisplay = domElem('div#daily-display');
     const dailyNodeList = document.querySelectorAll('div.daily-forecast');
-    dailyNodeList.forEach(node => dailyCont.removeChild(node));
+    dailyNodeList.forEach(node => dailyDisplay.removeChild(node));
 }
 
 // Consolidated function call

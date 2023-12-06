@@ -14,7 +14,7 @@ const displayDailyForecast = (data) => {
         dailyObjArr.push(data.forecast.forecastday[i]);
     }
 
-    const createDailyDisplay = (dailyObj) => {
+    const createDailyForecast = (dailyObj) => {
         // Note: Date used is not calculated through epoch, since it creates discrepancy to change of timezone
         // epoch received is relative to client date
 
@@ -30,8 +30,8 @@ const displayDailyForecast = (data) => {
         const maxTempVal = Math.round(dailyObj.day[`maxtemp_${tempUnit}`]);
         const minTempVal = Math.round(dailyObj.day[`mintemp_${tempUnit}`]);
 
-        const dailyDisplay = document.createElement('div');
-        dailyDisplay.setAttribute('class', 'daily-forecast');
+        const dailyForecast = document.createElement('div');
+        dailyForecast.setAttribute('class', 'daily-forecast');
 
         const date = document.createElement('p');
         date.setAttribute('class', 'daily-date');
@@ -62,15 +62,15 @@ const displayDailyForecast = (data) => {
         // Appends component to individual day forecast, 
         // then return container
         const components = [date, day, weatherIcon, dailyHigh, dailyLow];
-        components.forEach(comp => dailyDisplay.appendChild(comp));
-        return dailyDisplay;
+        components.forEach(comp => dailyForecast.appendChild(comp));
+        return dailyForecast;
     }
 
     // Append daily forecast to existing daily forecast container in DOM
-    const dailyForecastCont = domElem('div#daily-forecast-cont');
+    const dailyDisplayCont = domElem('div#daily-display');
     dailyObjArr.forEach(obj => {
-        const dailyDisplay = createDailyDisplay(obj);
-        dailyForecastCont.appendChild(dailyDisplay);
+        const dailyForecast = createDailyForecast(obj);
+        dailyDisplayCont.appendChild(dailyForecast);
     });
 }
 

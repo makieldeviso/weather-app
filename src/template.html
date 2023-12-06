@@ -79,7 +79,7 @@
 
         <!-- search bar (start) -->
         <div id="city-search">
-            <input type="text" id="city-search-field">
+            <input type="text" id="city-search-field" placeholder="Enter location">
             <button type="button" id="city-search-button" aria-label="search">
                 <svg 
                     xmlns="http://www.w3.org/2000/svg" 
@@ -202,13 +202,15 @@
         <!-- forecast display (start) -->
         <div id="forecast-display">
             
-            <div id="hourly-forecast-cont">
+            <div id="hourly-forecast-cont" class="forecast-cont">
                 <div id="hourly-display"></div>
             </div>
     
-            <div id="daily-forecast-cont"></div>
+            <div id="daily-forecast-cont" class="forecast-cont">
+                <div id="daily-display"></div>
+            </div>
 
-            <div id="astro-cont">
+            <div id="astro-cont" class="forecast-cont">
                 <div id="astro-display"></div>
             </div>
         </div>
