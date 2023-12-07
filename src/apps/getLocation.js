@@ -1,7 +1,7 @@
 import { getDataFromAPI } from "./getData";
 import { setForecastData } from "./memoryHandler";
 import { displayDataToDOM, hideElements } from "./displayDataToDom";
-import { getUserPref, setUserPref } from "./userSettings";
+import { getUserPref, getUserSettings, setUserPref } from "./userSettings";
 import { loadSpinner } from "./addLoadingScreen";
 import { showAlertMessage } from "./showAlertMessage";
 
@@ -35,6 +35,7 @@ const getLocationWeather = async function (location) {
 
     if (Object.hasOwn(forecastData, 'error')) {
         showAlertMessage(forecastData);
+        setUserPref({errorFound: true});
 
     } else {
         // After getting data from API, save data to memoryHandler
@@ -47,7 +48,8 @@ const getLocationWeather = async function (location) {
         const updateSettings = {
             city: forecastData.location.name,
             country: forecastData.location.country,
-            lastDataReceived: forecastData
+            lastDataReceived: forecastData,
+            errorFound: false
         };
         setUserPref(updateSettings);
     } 
@@ -67,11 +69,15 @@ const onLoadLocationWeather = async function () {
 
     // Unhide elements previously hidden
     // if initial data fetch fails and no previous data is saved, continue hiding blank elements
-    if (getUserPref('lastDataReceived')) {
+    const errorFound = getUserPref(`errorFound`);
+    if (errorFound && getUserPref('lastDataReceived')) {
         hideElements(false); // unhide
 
         const lastDataReceived = getUserPref('lastDataReceived');
         displayDataToDOM(lastDataReceived);
+
+    } else if (!errorFound) {
+        hideElements(false); // unhide
     }
 }
 

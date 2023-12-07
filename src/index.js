@@ -6,6 +6,8 @@ import pageChanger from "./styles/pageChanger.css"
 import { assignSearchBtnEvent, onLoadLocationWeather } from "./apps/getLocation";
 import { setInitial } from "./apps/userSettings";
 import { assignSettingsBtnEvent } from "./apps/settings";
+import { assignHourlyResize } from "./apps/displayHourlyForecast";
+import { assignAstroBtnEvent, assignAstroResize } from "./apps/displayAstro";
 
 // Add initial on load event listeners
 assignSearchBtnEvent(); // adds event listener to search button
@@ -16,5 +18,13 @@ assignSettingsBtnEvent(); // adds event listener to settings button
 //  it does not create another values
 setInitial();
 
-// Loads initial data on DOM using preferences saved on the local storage
-onLoadLocationWeather();
+// Loads initial data on DOM using:
+// Passed: data from API
+// Failed: data saved on the local storage if any
+await onLoadLocationWeather();
+
+// Assign resize events after initial data is displayed
+assignHourlyResize();
+assignAstroResize();
+assignAstroBtnEvent();
+

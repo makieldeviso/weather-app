@@ -35,6 +35,56 @@ const waningGibbous = assignPropToMoonPhase('Waning Gibbous', 'M18 12C18 7.5 16.
 const lastQuarter = assignPropToMoonPhase('Last Quarter', 'M12 2A10 10 0 0 0 12 22Z');
 const waningCrescent = assignPropToMoonPhase('Waning Crescent', 'M2 12A10 10 0 0 0 15 21.54A10 10 0 0 1 15 2.46A10 10 0 0 0 2 12Z');
 
+// Event listener functions
+const assignAstroBtnEvent = function () {
+    const showAstroBtn = domElem('button#show-astro');
+    const closeModalBtn = domElem('button#close-display-modal');
+    const displayModal = domElem('dialog#display-modal');
+
+    const closeModal = () => {
+            displayModal.close();
+            closeModalBtn.removeEventListener('click', closeModal);
+    }
+
+    const showAstro = function () {
+        // Show modal
+        displayModal.showModal();
+
+        // Add event listener to close button
+        closeModalBtn.addEventListener('click', closeModal);
+    }
+
+    showAstroBtn.addEventListener('click', showAstro);
+}
+
+const assignAstroResize = function () {
+    const astroCont = domElem('div#astro-cont');
+    const modalCont = domElem('div#modal-cont');
+    const forecastDisplay = domElem('div#forecast-display');
+    const showAstroBtn = domElem('button#show-astro');
+        
+    const showAstroOnResize = function () {
+        const pageWidth = window.innerWidth;
+        const astroInModal = modalCont.contains(astroCont);
+
+        
+        if (pageWidth < 1024 && !astroInModal) {
+        // if pageWidth is less than 1024 and astroCont is not inside displayModal
+            modalCont.appendChild(astroCont);
+            showAstroBtn.classList.remove('hidden');
+            showAstroBtn.disabled = false;
+
+        } else if (pageWidth >= 1024 && astroInModal) {
+        // if pageWidth is greater than or equal to 1024 and astroCont is inside displayModal
+            forecastDisplay.appendChild(astroCont);
+            showAstroBtn.classList.add('hidden');
+            showAstroBtn.disabled = true;
+        }
+    }
+
+    window.addEventListener('resize', showAstroOnResize);
+}
+
 const displayAstro = (data) => {
     const astroCont = domElem('div#astro-cont');
     const astroDisplayCont = domElem('div#astro-display');
@@ -119,6 +169,15 @@ const displayAstro = (data) => {
 
     // Add required event listener
     assignPageBtnEvent('astro');
+
+    if (window.innerWidth < 1024) {
+        const modalCont = domElem('div#modal-cont');
+        modalCont.appendChild(astroCont);
+    } else {
+        const showAstroBtn = domElem('button#show-astro');
+        showAstroBtn.classList.add('hidden');
+        showAstroBtn.disabled = true;
+    }
 }
 
-export { displayAstro } 
+export { displayAstro, assignAstroResize, assignAstroBtnEvent } 

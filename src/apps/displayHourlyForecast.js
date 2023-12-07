@@ -4,17 +4,15 @@ import { createCdnIcon, createSpan, domElem } from "./elementCreatorScripts";
 import { createPageChanger, assignPageBtnEvent, defaultChangerStatus } from "./changePageDisplay";
 
 const assignHourlyResize = function () {
-
     // Detects wether screen size is more or less than 1024px then 
     // Hide or show page changer depending on layout
     // Translate hourly pages back to origina
     const showPageChanger = function () {
         const pageWidth = window.innerWidth;
-
-        // Note: Page changer in astro display does not become hidden
         const pageChanger = document.querySelector('div#hourly-page-changer');
-        
+
         if (pageWidth < 1024) {
+            // Note: Page changer in astro display does not become hidden
             pageChanger.classList.add('hidden');
             defaultChangerStatus('hourly');
         } else {
@@ -23,7 +21,7 @@ const assignHourlyResize = function () {
         }
     }
 
-    window.addEventListener('load', showPageChanger);
+    // Note: removEventListener is run first to ensure no eventListener is duplicated
     window.addEventListener('resize', showPageChanger);
 }
 
@@ -122,11 +120,14 @@ const displayHourlyForecast = (data) => {
     const hourlyForecastCont = domElem('div#hourly-forecast-cont');
     const pageChanger = createPageChanger('hourly', hourlyPages,);
     hourlyForecastCont.appendChild(pageChanger);
+    // Note: page changer is hidden in small screen size to enable scroll feature
+    if (window.innerWidth < 1024) {
+        pageChanger.classList.add('hidden');
+    }
 
     // Assign required event listeners
     assignPageBtnEvent('hourly');
-    assignHourlyResize();
 
 }
 
-export default displayHourlyForecast
+export {displayHourlyForecast, assignHourlyResize}

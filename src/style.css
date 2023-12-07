@@ -127,6 +127,10 @@ button.options-button {
     align-items: center;
 }
 
+button.options-button.hidden {
+    display: none;
+}
+
 svg#settings-icon {
     fill: var(--darker-color);
 }
@@ -746,11 +750,52 @@ p.moonphase-name {
     font-size: calc(var(--common-font-size) * 0.9);
 }
 
-/* Astro (end) */
-
 /* Astro forecast (end) */
 
+/* Display Modal (start) */
+dialog#display-modal {
+    margin: 30vh auto;
+    width: 100vw;
+    max-width: max-content;
+    border: none;
+    border-radius: var(--common-border-radius);
+    background-color: transparent;
+}
 
+div#modal-btn-cont {
+    background-color: transparent;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+div#modal-cont {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    background: linear-gradient(#37406c, #262e5a);
+    border-radius: var(--common-border-radius);
+}
+
+dialog::backdrop {
+    background: linear-gradient(rgba(55, 64, 109, 0.8), rgba(38, 46, 89, 0.8));
+}
+
+button#close-display-modal {
+    width: var(--settings-btn-size);
+    height: var(--settings-btn-size);
+    background-color: var(--darker-color);
+    border-radius: 50%;
+    border: 1px solid rgb(219, 255, 251, 0.2);
+    justify-self: end;
+    margin: 8px 0;
+    padding: 3px;
+}
+
+svg.close-icon {
+    fill: var(--light-color);
+}
+/* Display Modal (end) */
 
 
 /* Main (end) */

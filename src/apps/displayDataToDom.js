@@ -1,6 +1,6 @@
 import { domElem } from "./elementCreatorScripts";
 import displayMainData from "./displayMainData";
-import displayHourlyForecast from "./displayHourlyForecast";
+import { displayHourlyForecast } from "./displayHourlyForecast";
 import displayDailyForecast from "./displayDailyForecast";
 import { displayAstro } from "./displayAstro";
 
@@ -16,7 +16,6 @@ const refreshDisplay = () => {
         astroCont.removeChild(astroPageChanger);
     }
     
-
     // Hourly forecast
     const hourlyForecastCont = domElem('div#hourly-forecast-cont');
     const hourlyDisplay = domElem('div#hourly-display');
@@ -62,6 +61,5 @@ const hideElements = (action) => {
     }
     
 }
-
 
 export { displayDataToDOM, hideElements}
