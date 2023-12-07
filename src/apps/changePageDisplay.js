@@ -1,5 +1,31 @@
 import { createSvg } from "./elementCreatorScripts";
 
+const defaultChangerStatus = function (name) {
+    const pageChangerCont = document.querySelector(`div#${name}-page-changer`);
+    const pageDisplay = document.querySelector(`div#${name}-display`);
+    const displayPages = document.querySelectorAll(`div.${name}-page`);
+
+    const leftBtn = pageChangerCont.querySelector('button[value="left"]');
+    const rightBtn = pageChangerCont.querySelector('button[value="right"]');
+    const pageMarkers = pageChangerCont.querySelectorAll('div.page-mark');
+
+    leftBtn.dataset.page = '1';
+    leftBtn.disabled = true;
+    rightBtn.dataset.page = '1';
+    rightBtn.disabled = false;
+
+    pageMarkers.forEach(marker => {
+        if (marker.getAttribute('id').includes('page-mark-1')) {
+            marker.classList.add('current');
+        } else {
+            marker.classList.remove('current');
+        }
+    });
+
+    pageDisplay.scrollLeft = 0;
+    displayPages.forEach(page => page.setAttribute('style', 'transform:translateX(0%)'));
+}
+
 const createPageChanger = function (assignName, pageLength) {
     const pageChangerCont = document.createElement('div');
     pageChangerCont.setAttribute('id', `${assignName}-page-changer`);
@@ -29,6 +55,7 @@ const createPageChanger = function (assignName, pageLength) {
 
     const leftBtn = createBtn(`${assignName}-turn-left`, defaultPage, 'left');
     const rightBtn = createBtn(`${assignName}-turn-right`, defaultPage, 'right');
+
     const pageMarkerCont = document.createElement('div');
     pageMarkerCont.setAttribute('class', 'page-markers-cont');
 
@@ -113,7 +140,6 @@ const changePage= function () {
     displayPages.forEach(page => {
         page.setAttribute('style', `transform: translateX(${(pageFlag-1) * -100}%)`);
     });
-
 }
 
 const assignPageBtnEvent = function (name) {
@@ -124,4 +150,4 @@ const assignPageBtnEvent = function (name) {
     rightBtn.addEventListener('click', changePage);
 }
 
-export {createPageChanger, assignPageBtnEvent}
+export { createPageChanger, assignPageBtnEvent, defaultChangerStatus }

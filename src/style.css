@@ -55,7 +55,7 @@ main.night {
 
 p {
     color: white;
-    text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 img#location-icon {
@@ -113,6 +113,7 @@ div#options-banner {
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: var(--common-padding);
 }
 
 button.options-button {
@@ -127,6 +128,10 @@ button.options-button {
 }
 
 svg#settings-icon {
+    fill: var(--darker-color);
+}
+
+svg#show-astro-icon {
     fill: var(--darker-color);
 }
 
@@ -545,7 +550,7 @@ div#hourly-forecast-cont {
     padding: var(--common-padding);
     padding-bottom: 0;
     border-radius: 5px;
-    justify-content: center;
+    justify-items: center;
 }
 
 div#hourly-display {
@@ -557,16 +562,13 @@ div#hourly-display {
     width: 100%;
 }
 
-div.page-changer {
-    display: none;
-}
-
 div.hourly-page {
     display: flex;
     gap: 10px;
     justify-content: center;
     align-items: center;
     border-radius: 5px;
+    padding: calc(var(--common-padding) * 0.5)
 }
 
 div.hourly-forecast {
@@ -579,10 +581,14 @@ div.hourly-forecast {
     border-radius: 5px;
     background-color: rgb(219, 255, 251, 0.3);
     width: 50px;
+    box-shadow: 0 0 2px 1px rgb(219, 255, 251, 0.3);
+    border: 1px solid rgb(219, 255, 251, 0.4);
 }
 
 div.hourly-forecast.tomorrow {
     background-color: rgba(23, 107, 135, 0.3);
+    box-shadow: 0 0 4px 1px rgba(4, 53, 73, 0.3);
+    border: 1px solid rgba(23, 107, 135, 0.3);
 }
 
 div#hourly-forecast-cont p {
@@ -608,6 +614,8 @@ div#daily-display {
     background-color: rgb(219, 255, 251, 0.3);
     border-radius: 8px;
     width: 100%;
+    box-shadow: 0 0 4px 1px rgb(219, 255, 251, 0.3);
+    border: 1px solid rgb(219, 255, 251, 0.4);
 }
 
 div.daily-forecast {
@@ -639,9 +647,106 @@ p.daily-high, p.daily-low {
 /* daily-forecast (end) */
 
 /* Astro forecast (start) */
-div#astro-cont {
+div#astro-cont.hidden {
     display: none;
 }
+
+div#astro-cont {
+    width: 90vw;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, max-content);
+    justify-items: center;
+    align-items: center;
+    background:linear-gradient(transparent 30%, rgba(23, 107, 135, 0.3)) ;
+    border-radius: 5px;
+    padding: var(--common-padding);
+    gap: var(--common-margin);
+}
+
+div#astro-display {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 100%);
+    border-radius: var(--common-border-radius);
+    overflow: hidden;
+    gap: 0;
+    box-shadow: 0 0 4px 1px rgb(219, 255, 251, 0.3);
+    border: 1px solid rgb(219, 255, 251, 0.4);
+}
+
+div.astro-page {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: var(--common-padding);
+    position: relative;
+    background-color: rgb(219, 255, 251, 0.3);
+    border-radius: 5px;
+    transition: transform 0.3s ease-in-out;
+    row-gap: var(--common-margin);
+}
+
+p.day-indicator {
+    grid-column: 1 / 3;
+    grid-row: 1 / 2;
+    text-align: center;
+    font-size: var(--common-font-size);
+    font-family: var(--common-font-family);
+}
+
+div.astro-specs {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--common-margin) * 0.5);
+    justify-content:start;
+}
+
+div.astro-specs p {
+    font-size: calc(var(--common-font-size) * 0.9);
+    display: grid;
+    grid-template-columns: 45% 1fr;
+    width: 100%;
+    align-items: center;
+}
+
+span.astro-value {
+    font-size: calc(var(--common-font-size) * 0.8);
+    justify-self: center;
+    text-align: center;
+}
+
+div.moonphase-cont {
+    width: 100%;
+    min-width: max-content;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, max-content);
+    gap: calc(var(--common-margin) * 0.5);
+    justify-items: center;
+    align-items: center;
+    justify-self: center;
+}
+
+svg.moon-icon {
+    width: 60px;
+    height: 60px;
+    fill: var(--light-color);
+    stroke: var(--light-color);
+    background-color: rgba(23, 107, 135, 0.3);
+
+    border-radius: 50%;
+}
+
+svg.moon-icon path {
+    filter: drop-shadow(0 0 3px rgba(219, 255, 251, 0.5));
+}
+
+p.moonphase-name {
+    font-size: calc(var(--common-font-size) * 0.9);
+}
+
+/* Astro (end) */
 
 /* Astro forecast (end) */
 

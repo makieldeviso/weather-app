@@ -1,0 +1,78 @@
+/* Page changer */
+div.page-changer.hidden {
+    display: none;
+}
+
+div.page-changer {
+    justify-self: center;
+    
+    display: grid;
+    grid-template-columns: repeat(3, max-content);
+    gap: var(--common-margin);
+    justify-items: center;
+    align-items: center;
+
+    width: max-content;
+}
+
+div.page-markers-cont {
+    display: flex;
+    gap: var(--common-margin);
+}
+
+div.page-changer button {
+    width: 25px;
+    height: 25px;
+    background-color: transparent;
+    border: none;
+    transition: all 0.1s ease-in-out;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+div.page-changer button:disabled {
+    filter: brightness(0.5);
+    cursor: default;
+}
+
+div.page-changer button:disabled:hover{
+    filter: brightness(0.5);
+    transform: scale(1);
+}
+
+div.page-changer button:hover {
+    filter: brightness(1.3);
+}
+
+div.page-changer button:active {
+    filter: brightness(1.3);
+    transform: scale(0.9);
+}
+
+div.page-changer button svg {
+    fill: var(--light-color);
+    width: 100%;
+    height: 100%;
+} 
+
+div.page-mark {
+    width: 20px;
+    height: 5px;
+    border-radius: 5px;
+    background-color: var(--base-color);
+    transition: transform 0.2s ease-in-out;
+}
+
+div.page-mark.current {
+    border: 1px solid var(--yellow-color);
+    background-color: var(--yellow-color);
+    transform: translateY(-3px);
+}
+
+div.hourly-page {
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Page changer */

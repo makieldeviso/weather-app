@@ -1,8 +1,8 @@
+import { format } from "date-fns";
 import { createPageChanger, assignPageBtnEvent } from "./changePageDisplay";
 import { createSpan, createSvg, domElem, toFormal } from "./elementCreatorScripts"
 import { convertTimeFormat } from "./timeScript";
 import { getUserPref } from "./userSettings";
-import { format } from "date-fns";
 
 const convertNameToId = function (name) {
     const nameArr = name.split(' ');
@@ -116,6 +116,8 @@ const displayAstro = (data) => {
 
     const pageChanger = createPageChanger('astro', forecastDayData.length);
     astroCont.appendChild(pageChanger);
+
+    // Add required event listener
     assignPageBtnEvent('astro');
 }
 
