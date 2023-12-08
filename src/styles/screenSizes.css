@@ -69,7 +69,7 @@ div#more-stats {
     
 }
 
-@media only screen and (min-width: 280px) {
+@media only screen and (min-width: 280px) and (max-width: 359px) {
     :root {
         --header-font-size: 0.8rem;
         --common-font-size: 0.7rem;
@@ -78,8 +78,17 @@ div#more-stats {
         --common-padding: calc(5px + 0.5vw);
         --common-margin: calc(10px + 0.5vw);
 
-        --icon-size: calc(30px + 0.5vw);
+        --icon-size: 25px;
+        --settings-btn-size: 25px;
     } 
+
+    div.hourly-forecast {
+        width: 40px;
+    }
+
+    div#settings-tab.open {
+        width: 60vw;
+    }
 }
 
 @media only screen and (min-width: 360px) {
@@ -87,9 +96,11 @@ div#more-stats {
         --header-font-size: 1rem;
         --common-font-size: 0.8rem;
         --title-font-size: 1rem;
-
-        --icon-size: calc(30px + 0.5vw);
     }       
+
+    div#forecast-display {
+        margin: calc(var(--common-margin) * 0.5) 0;
+    }
 }
 
 @media only screen and (min-width: 390px) {
@@ -101,21 +112,25 @@ div#more-stats {
 
     div#current-display {
         row-gap: calc(var(--common-margin) * 1.5);
-    }      
+    }    
+    
+    div#forecast-display {
+        margin: var(--common-margin) 0;
+    }
 }
 
 @media only screen and (min-width: 412px) {
     :root {
-        --header-font-size: 1.5rem;
-        --common-font-size: 1.2rem;
-        --title-font-size: 1.5rem;
+        --header-font-size: 1.3rem;
+        --common-font-size: 1rem;
+        --title-font-size: 1.3rem;
     }
 }
 
 /* Tablet */
 @media only screen and (min-width: 768px) and (min-height: 1024px) {
     :root {
-        --icon-size: 50px;
+        --icon-size: 40px;
         --small-icon-size: 35px;
         --settings-btn-size: 35px;
 
@@ -132,8 +147,12 @@ div#more-stats {
     }
 
     div.hourly-forecast {
+        width: 70px;
         padding: 10px;
-        gap: 10px;
+    }
+
+    div.hourly-page {
+        gap: 15px;  
     }
 
     div#error-message-cont {
@@ -146,16 +165,194 @@ div#more-stats {
     }
 }
 
-/* @media only screen and (min-width: 768px) and (min-height: 1024px) {
-    :root {
-        --header-font-size: 1.5rem;
-        --common-font-size: 1.3rem;
-        --title-font-size: 1.5rem;
+@media screen and (min-width: 820px) and (min-height: 1180px) {
+    div#astro-cont {
+        max-width: none;
     }
-} */
+}
+
+@media screen and (min-width: 912px) and (min-height: 1366px) {
+    :root {
+        --header-font-size: 1.8rem;
+        --common-font-size: 1.5rem;
+        --title-font-size: 1.8rem;
+
+        --icon-size: 50px;
+        --small-icon-size: 40px;
+        --settings-btn-size: 40px;
+
+        --common-padding: 10px;
+        --common-margin: 15px;
+    }
+
+    p#main-condition {
+        max-width: 260px;
+    }
+    div#more-stats {
+        width: 600px;
+    }
+
+    div#settings-tab.open {
+        width: 300px;
+    }
+    
+    div#hourly-page-changer.page-changer {
+        display: none;
+    }
+
+    div.hourly-forecast {
+        width: 80px;
+        padding: 10px;
+    }
+
+    svg.moon-icon {
+        width: 80px;
+        height: 80px;
+    }
+}
 
 /* Desktop */
-@media only screen and (min-width: 1024px) {
+@media (hover:hover) {
+    :root {
+        --header-font-size: 1rem;
+        --common-font-size: 0.8rem;
+        --title-font-size: 1rem;
+
+        --icon-size: 30px;
+        --small-icon-size: 25px;
+        --settings-btn-size: 25px;
+
+        --common-padding: 8px;
+        --common-margin: 16px;
+    }
+
+    body {
+        min-width: 540px;
+        max-width: 1336px;
+        margin: auto;
+    }
+
+    div#current-display {
+        row-gap: var(--common-margin);
+    }
+
+    div#forecast-display {
+        margin: calc(var(--common-margin) * 1) 0;
+    }
+
+    div.hourly-forecast {
+        width: 50px;
+    }
+
+    div#hourly-display {
+        padding-bottom: calc(var(--common-padding) * 1);
+    }
+
+    @media screen and (max-width: 540px) {
+        div#city-search,
+        div#current-display,
+        div#forecast-display {
+            min-width: 450px;
+        }
+
+        div#more-stats,
+        div#hourly-forecast-cont,
+        div#daily-forecast-cont{
+            width: 95%;
+            max-width: none;
+        }
+    }
+
+    @media screen and (min-width: 820px) {
+        main {
+            grid-template-areas:
+                "current-display search-bar"
+                "current-display forecast-display" ;
+            grid-template-columns: 35% 1fr;
+            grid-template-rows: max-content 1fr;
+            justify-content: center;
+        }
+    
+        div#condition-bg {
+            width: 100%;
+        }
+    
+        div#city-search {
+            width: 450px;
+        }
+    
+        div#error-message-cont {
+            width: 400px;
+        }
+    
+        div#current-display {
+            padding: var(--common-margin) 0; /* Use common-margin to align with search bar */
+            width: 100%;
+            height: 100%;
+            align-self: start;
+            height: 95%;
+            width: 95%;
+            align-self: center;
+            justify-self: center;
+            border-radius: var(--common-border-radius);
+            background: linear-gradient(rgb(219, 255, 251, 0.2), rgba(102, 204, 197, 0.1), rgb(219, 255, 251, 0.2));
+            box-shadow: 0 0 5px 3px rgb(219, 255, 251, 0.3);
+            border: 1px solid rgb(219, 255, 251, 0.4);
+        }
+    
+        p#main-condition {
+            max-width: 150px;
+        }
+    
+        div#more-stats {
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            gap: var(--common-margin);
+        }
+    
+        div.stat {
+            width: 150px;
+        }
+    
+        div#forecast-display {
+            width: 100%;
+            /* gap: calc(var(--common-margin) * 2); */
+        }
+    
+        div#hourly-forecast-cont {
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: max-content max-content;
+            justify-items: center;
+            align-items: center;
+            width: 500px;
+            background: linear-gradient(transparent 30%, rgba(23, 107, 135, 0.3));
+            padding-bottom: var(--common-padding);
+            gap: var(--common-margin);
+        }
+    
+        div#hourly-display {
+            width: 490px;
+            grid-template-columns: repeat(4, 490px);
+            overflow: hidden;
+            gap: 0;
+            padding: 0;
+        }
+    
+        /* Astro */
+        div#astro-cont {
+            width: 500px;
+        }
+        
+        /* Daily Forecast */
+        div#daily-forecast-cont {
+            width: 500px;
+        }
+    }
+}
+
+@media only screen and (min-width: 1024px) and (max-height: 1366px){
     :root {
         --header-font-size: 1.2rem;
         --common-font-size: 1rem;

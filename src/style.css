@@ -8,8 +8,8 @@
 }
 
 :root {
-    --icon-size: calc(40px + 0.5vw);
-    --small-icon-size: calc(25px + 0.5vw);
+    --icon-size: 30px;
+    --small-icon-size: 25px;
     --settings-btn-size: 30px;
 
     --header-font-size: 1.3rem;
@@ -153,6 +153,12 @@ div#settings-tab {
     
     width: 0;
     min-width: max-content;
+}
+
+div#settings-tab p.tab-header {
+    font-size: calc(var(--header-font-size) * 0.9);
+    text-align: center;
+    margin-bottom: var(--common-margin  );
 }
 
 div#settings-tab.open {
@@ -553,15 +559,15 @@ div#hourly-forecast-cont {
     width: 90vw;
     padding: var(--common-padding);
     padding-bottom: 0;
-    border-radius: 5px;
-    justify-items: center;
+    border-radius: 10px;
+    justify-items: start;
 }
 
 div#hourly-display {
     display: grid;
     grid-template-columns: repeat(4, max-content);
     padding-bottom: calc(var(--common-padding) * 2);
-    gap: 10px;
+    gap: 5px;
     overflow-x: scroll;
     width: 100%;
 }
@@ -572,7 +578,7 @@ div.hourly-page {
     justify-content: center;
     align-items: center;
     border-radius: 5px;
-    padding: calc(var(--common-padding) * 0.5)
+    padding: calc(var(--common-padding) * 0.5);
 }
 
 div.hourly-forecast {
@@ -657,6 +663,7 @@ div#astro-cont.hidden {
 
 div#astro-cont {
     width: 90vw;
+    max-width: 500px;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: repeat(2, max-content);
@@ -760,6 +767,16 @@ dialog#display-modal {
     border: none;
     border-radius: var(--common-border-radius);
     background-color: transparent;
+    animation: pop-modal 0.1s linear 1;
+}
+
+@keyframes pop-modal {
+    from {
+        transform: scale(0.3);
+    }
+    to {
+        transform: scale(1);
+    }
 }
 
 div#modal-btn-cont {

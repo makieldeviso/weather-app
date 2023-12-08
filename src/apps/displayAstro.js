@@ -67,14 +67,19 @@ const assignAstroResize = function () {
         const pageWidth = window.innerWidth;
         const astroInModal = modalCont.contains(astroCont);
 
+        // Ensures that the modal is closed on screen resize
+        const modalDialog = domElem('dialog#display-modal');
+        if (modalDialog.open === true) {
+            modalDialog.close();
+        }
         
-        if (pageWidth < 1024 && !astroInModal) {
+        if (window.innerWidth < 820  && !astroInModal) {
         // if pageWidth is less than 1024 and astroCont is not inside displayModal
             modalCont.appendChild(astroCont);
             showAstroBtn.classList.remove('hidden');
             showAstroBtn.disabled = false;
 
-        } else if (pageWidth >= 1024 && astroInModal) {
+        } else if (window.innerWidth >= 820 && astroInModal) {
         // if pageWidth is greater than or equal to 1024 and astroCont is inside displayModal
             forecastDisplay.appendChild(astroCont);
             showAstroBtn.classList.add('hidden');
@@ -170,8 +175,8 @@ const displayAstro = (data) => {
     // Add required event listener
     assignPageBtnEvent('astro');
 
-    if (window.innerWidth < 1024) {
-        const modalCont = domElem('div#modal-cont');
+    if (window.innerWidth < 820) {
+        const modalCont = domElem('div#modal-cont');    
         modalCont.appendChild(astroCont);
     } else {
         const showAstroBtn = domElem('button#show-astro');
