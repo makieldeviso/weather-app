@@ -6,7 +6,7 @@ const userDefault = () => {
     const precipUnit = 'mm';
     const windUnit = 'kph';
     const otherUnits = 'metric';
-    const timeFormat = 'hr-12'
+    const timeFormat = 'hr-12';
 
     return {city, country, tempUnit, precipUnit, windUnit, otherUnits, timeFormat};
 }
