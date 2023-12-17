@@ -1,4 +1,4 @@
-import css from "./style.css";
+import css from "./styles/style.css";
 import loadingScreenStyle from "./styles/loadingScreen.css";
 import screenSizesStyle from "./styles/screenSizes.css";
 import pageChanger from "./styles/pageChanger.css"

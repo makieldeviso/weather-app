@@ -348,24 +348,24 @@ div#condition-bg {
 }
 
 main.day div#condition-bg.cloudy {
-    background-image: url(./assets/cloudy.jpg);
+    background-image: url(../assets/cloudy.jpg);
 }
 
 main.night div#condition-bg.cloudy {
-    background-image: url(./assets/dark-clouds-night.jpg);
+    background-image: url(../assets/dark-clouds-night.jpg);
 }
 
 main.day div#condition-bg.clear {
-    background-image: url(./assets/sunny.jpg);
+    background-image: url(../assets/sunny.jpg);
 }
 
 main.night div#condition-bg.clear {
-    background-image: url(./assets/clear-night.jpg);
+    background-image: url(../assets/clear-night.jpg);
     filter: opacity(0.5);
 }
 
 main.day-dark div#condition-bg.rainy {
-    background-image: url(./assets/dark-clouds.jpg);
+    background-image: url(../assets/dark-clouds.jpg);
     filter: opacity(0.3);
 }
 
