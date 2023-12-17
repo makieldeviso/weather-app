@@ -1,10 +1,8 @@
 // Reusable Shorter DOM selector
-const domElem = function (selector) {
-    return document.querySelector(selector);
-}
+const domElem = (selector) => document.querySelector(selector);
 
 // Reusable span creator
-const createSpan = function (parent, assignClass, textContent) {
+const createSpan = (parent, assignClass, textContent) => {
     const span = document.createElement('span');
     span.setAttribute('class', assignClass);
     span.textContent = textContent;
@@ -13,7 +11,7 @@ const createSpan = function (parent, assignClass, textContent) {
 }
 
 // Reusable weather condition icon maker 
-const createCdnIcon = function ( assignClass, time, condition, iconUrl ) {
+const createCdnIcon = ( assignClass, time, condition, iconUrl ) => {
     const weatherIcon = document.createElement('img');
     weatherIcon.setAttribute('class', assignClass);
     weatherIcon.setAttribute('alt', `${time} ${condition}`);
@@ -23,7 +21,7 @@ const createCdnIcon = function ( assignClass, time, condition, iconUrl ) {
     return weatherIcon;
 }
 
-const createSvg = function (assignId, pathD) {
+const createSvg = (assignId, pathD) => {
 
     const newSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     newSvg.setAttribute('viewBox', '0 0 24 24');
@@ -39,8 +37,7 @@ const createSvg = function (assignId, pathD) {
     return newSvg
 }
 
-const toFormal = function (text) {
-    const string = text;
+const toFormal = (text) => {
     const firstLetter = text.slice(0, 1).toUpperCase();
     const rest = text.slice(1);
 

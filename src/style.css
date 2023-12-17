@@ -282,7 +282,6 @@ button#save-settings-btn {
 /* Header (end) */
 
 /* Main (start) */
-
 div#city-search {
     width: 450px;
     max-width: 90vw;
@@ -482,12 +481,6 @@ div#high-low-temp p {
 }
 
 div#more-stats {
-    /* display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    row-gap: var(--common-margin);
-    margin: var(--common-margin) auto calc(var(--common-margin) * 2);
-    justify-content: center; */
-
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -605,7 +598,6 @@ div#hourly-forecast-cont p {
     font-size: calc(var(--common-font-size) * 0.8);
     width: 100%;
 }
-
 /* hourly forecast (end) */
 
 /* daily-forecast (start) */
