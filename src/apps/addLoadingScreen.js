@@ -1,6 +1,6 @@
 import { createSvg } from "./elementCreatorScripts";
 
-const createLoadingScreen = function () {
+const createLoadingScreen = () => {
 
     const loadScreen = document.createElement('div');
     loadScreen.setAttribute('id', 'loading-screen');
@@ -22,7 +22,7 @@ const createLoadingScreen = function () {
     return loadScreen
 }
 
-const loadSpinner = function (action) {
+const loadSpinner = (action) => {
     const body = document.querySelector('body');
     
     if (action) {
@@ -33,7 +33,6 @@ const loadSpinner = function (action) {
         const loadScreen = document.querySelector('div#loading-screen');
         body.removeChild(loadScreen);
     }
-    
 }
 
 export {loadSpinner};

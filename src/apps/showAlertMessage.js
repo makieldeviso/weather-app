@@ -1,6 +1,6 @@
 import { createSvg } from "./elementCreatorScripts";
 
-const createAlertMessage = function (errorText, errorDetail ) {
+const createAlertMessage = (errorText, errorDetail) => {
     const errorMsgCont = document.createElement('div');
     errorMsgCont.setAttribute('id', 'error-message-cont');
 
@@ -27,7 +27,7 @@ const createAlertMessage = function (errorText, errorDetail ) {
     return errorMsgCont;
 }
 
-const closeAlertTab = function (event) {
+const closeAlertTab = (event) => {
     const main = document.querySelector('main');
     const body = document.querySelector('body');
     const alertTab = document.querySelector('div#error-message-cont');
@@ -49,7 +49,7 @@ const closeAlertTab = function (event) {
     }    
 }
 
-const showAlertMessage = function (errorObj) {
+const showAlertMessage = (errorObj) => {
     const errorMsg = errorObj.error.message;
     let notifMsg = 'Please try again later.'
     const main = document.querySelector('main');
@@ -70,4 +70,4 @@ const showAlertMessage = function (errorObj) {
     body.addEventListener('click', closeAlertTab);
 }
 
-export {showAlertMessage}
+export { showAlertMessage }

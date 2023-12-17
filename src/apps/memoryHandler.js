@@ -1,12 +1,9 @@
 let forecastData;
 
-const setForecastData = function (data) {
+const setForecastData = (data) => {
     forecastData = data;   
 }
 
-const getForecastData = function () {
-    return forecastData;
-}
-
+const getForecastData = () => forecastData;
 
 export {setForecastData, getForecastData};

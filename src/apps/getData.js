@@ -11,7 +11,6 @@ const getDataFromAPI = async function (location) {
         });
 
         const parsedData = await forecastResponse.json();
-        console.log(parsedData);
         return parsedData;
 
     } catch(err) {

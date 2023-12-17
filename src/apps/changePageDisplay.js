@@ -1,6 +1,6 @@
 import { createSvg } from "./elementCreatorScripts";
 
-const defaultChangerStatus = function (name) {
+const defaultChangerStatus = (name) => {
     const pageChangerCont = document.querySelector(`div#${name}-page-changer`);
     const pageDisplay = document.querySelector(`div#${name}-display`);
     const displayPages = document.querySelectorAll(`div.${name}-page`);
@@ -26,14 +26,14 @@ const defaultChangerStatus = function (name) {
     displayPages.forEach(page => page.setAttribute('style', 'transform:translateX(0%)'));
 }
 
-const createPageChanger = function (assignName, pageLength) {
+const createPageChanger = (assignName, pageLength) => {
     const pageChangerCont = document.createElement('div');
     pageChangerCont.setAttribute('id', `${assignName}-page-changer`);
     pageChangerCont.setAttribute('class', 'page-changer');
 
     const defaultPage = 1;
 
-    const createBtn = function (assignId, dataPage, assignValue) {
+    const createBtn = (assignId, dataPage, assignValue) => {
         const newBtn = document.createElement('button');
         newBtn.setAttribute('id', assignId);
         newBtn.dataset.page = dataPage;
@@ -78,7 +78,7 @@ const createPageChanger = function (assignName, pageLength) {
 }
 
 
-const changePage= function () {
+const changePage = function () {
     const btnName = this.dataset.name;
     
     const display = document.querySelector(`div#${btnName}-display`);
@@ -142,7 +142,7 @@ const changePage= function () {
     });
 }
 
-const assignPageBtnEvent = function (name) {
+const assignPageBtnEvent = (name) => {
     const leftBtn = document.querySelector(`button#${name}-turn-left`);
     const rightBtn = document.querySelector(`button#${name}-turn-right`);
 

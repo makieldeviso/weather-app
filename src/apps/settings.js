@@ -4,11 +4,11 @@ import { displayDataToDOM } from "./displayDataToDom";
 const settingsTab = document.querySelector('div#settings-tab');
 const settingsBtn = document.querySelector('button#settings');
 
-const addCloseTabOutsideClick = function (action) {
+const addCloseTabOutsideClick = (action) => {
     const body = document.querySelector('body');
     const saveSettingsBtn = document.querySelector('button#save-settings-btn');
 
-    const closeSettingsTabOutsideClick = function (event) {
+    const closeSettingsTabOutsideClick = (event) => {
         if (!settingsTab.contains(event.target)) {
             settingsTab.classList.remove('open');
             body.removeEventListener('click', closeSettingsTabOutsideClick);
@@ -84,11 +84,9 @@ const saveSettings = () => {
         const { lastDataReceived } = getUserSettings();
         displayDataToDOM(lastDataReceived);
     }   
-    
-    console.log(JSON.parse(localStorage.weatherAppSettings))
 }
 
-const openSettings = function () {
+const openSettings = () => {
     // Toggles settings tab open
     settingsTab.classList.toggle('open');
    
@@ -119,7 +117,7 @@ const openSettings = function () {
     }
 }
 
-const assignSettingsBtnEvent = function () {
+const assignSettingsBtnEvent = () => {
     settingsBtn.addEventListener('click', openSettings);
 }
 

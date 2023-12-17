@@ -3,11 +3,11 @@ import { getUserPref } from "./userSettings";
 import { createCdnIcon, createSpan, domElem } from "./elementCreatorScripts";
 import { createPageChanger, assignPageBtnEvent, defaultChangerStatus } from "./changePageDisplay";
 
-const assignHourlyResize = function () {
+const assignHourlyResize =  () => {
     // Detects wether screen size is more or less than 1024px then 
     // Hide or show page changer depending on layout
     // Translate hourly pages back to origina
-    const showPageChanger = function () {
+    const showPageChanger = () => {
         const pageWidth = window.innerWidth;
         const pageChanger = document.querySelector('div#hourly-page-changer');
 
@@ -21,7 +21,7 @@ const assignHourlyResize = function () {
         }
     }
 
-    // Note: removEventListener is run first to ensure no eventListener is duplicated
+    // Note: removeEventListener is run first to ensure no eventListener is duplicated
     window.addEventListener('resize', showPageChanger);
 }
 

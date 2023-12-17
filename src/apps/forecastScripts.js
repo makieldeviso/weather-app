@@ -1,5 +1,5 @@
 
-const getDayForecast = function (data, day, section) {
+const getDayForecast = (data, day, section) => {
     // Parameters:
     // data -> forecast data generated from weatherAPI, in object data type 
     // day -> 0-2, 0 = current day

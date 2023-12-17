@@ -1,5 +1,5 @@
 
-const userDefault = function () {
+const userDefault = () => {
     const city = 'Manila';
     const country = 'Philippines';
     const tempUnit = 'c';
@@ -11,23 +11,21 @@ const userDefault = function () {
     return {city, country, tempUnit, precipUnit, windUnit, otherUnits, timeFormat};
 }
 
-const setInitial = function () {
+const setInitial = () => {
     if (!localStorage.weatherAppSettings) {
         const initialDefault = JSON.stringify(userDefault());
         localStorage.setItem('weatherAppSettings', initialDefault);
     } 
 }
 
-const getUserSettings = function () {
-    return JSON.parse(localStorage.weatherAppSettings);
-}
+const getUserSettings = () => JSON.parse(localStorage.weatherAppSettings);
 
-const getUserPref = function (property) {
+const getUserPref = (property) => {
     const userSettings = JSON.parse(localStorage.weatherAppSettings);
     return userSettings[property];
 }
 
-const setUserPref = function (settingsObj) {
+const setUserPref = (settingsObj) => {
     // Note: settingsObj parameter receives an object with keyvalue pair
     //  to be modified to the settings
     const userSettings = getUserSettings();

@@ -1,5 +1,5 @@
 
-const changeBackground = function (data) {
+const changeBackground = (data) => {
 
     const forecastData = data;
     const isDay = forecastData.current.is_day;

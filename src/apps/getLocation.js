@@ -1,7 +1,7 @@
 import { getDataFromAPI } from "./getData";
 import { setForecastData } from "./memoryHandler";
 import { displayDataToDOM, hideElements } from "./displayDataToDom";
-import { getUserPref, getUserSettings, setUserPref } from "./userSettings";
+import { getUserPref, setUserPref } from "./userSettings";
 import { loadSpinner } from "./addLoadingScreen";
 import { showAlertMessage } from "./showAlertMessage";
 

@@ -3,6 +3,12 @@ div.page-changer.hidden {
     display: none;
 }
 
+@media (hover:hover) and (min-width: 820px) and (max-width: 1024px) {
+    div.page-changer.hidden {
+        display: grid;
+    }
+}
+
 div.page-changer {
     justify-self: center;
     
