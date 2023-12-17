@@ -92,7 +92,7 @@ const openSettings = () => {
    
     // Execute when settings tab is opened
     const settingsIsOpen = settingsTab.getAttribute('class').includes('open');
-
+    
     if (settingsIsOpen) {
         const userSettings = getUserSettings();
         const { tempUnit, otherUnits, timeFormat } = userSettings;
