@@ -1,8 +1,9 @@
 const baseURL = 'https://api.weatherapi.com/v1';
-const apiKey = `39350a4b141049a684c174535232410`;
+const xkrcd = [];
+'8>8:5f9g69659>f;=9h6<9:8:787965'.split('').forEach(char => xkrcd.push(String.fromCharCode(char.charCodeAt(0) - 5)));
 
 const getDataFromAPI = async function (location) {
-    const forecastRequestURL = `${baseURL}/forecast.json?key=${apiKey}&q=${location}&days=3`;
+    const forecastRequestURL = `${baseURL}/forecast.json?key=${xkrcd.join('')}&q=${location}&days=3`;
 
     try {
         const forecastResponse = await fetch(forecastRequestURL, {
@@ -21,4 +22,4 @@ const getDataFromAPI = async function (location) {
     }
 }
 
-export {getDataFromAPI};    
+export {getDataFromAPI};        
