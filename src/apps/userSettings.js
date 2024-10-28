@@ -12,6 +12,9 @@ const userDefault = () => {
 }
 
 const setInitial = () => {
+    const footerYear = document.querySelector('#footer-year');
+    footerYear.textContent = (new Date()).getFullYear();
+    
     if (!localStorage.weatherAppSettings) {
         const initialDefault = JSON.stringify(userDefault());
         localStorage.setItem('weatherAppSettings', initialDefault);
